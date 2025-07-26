@@ -38,6 +38,7 @@
 
               inputs.home-manager.nixosModules.home-manager
               inputs.disko.nixosModules.default
+              inputs.stylix.nixosModules.stylix
             ]
 
             # Optinally allow per host modules

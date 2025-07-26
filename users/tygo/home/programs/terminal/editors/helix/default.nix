@@ -12,7 +12,6 @@
       golangci-lint
     ];
     settings = {
-      theme = "tokyonight";
       editor = {
         indent-guides.render = true;
         lsp.display-inlay-hints = true;
