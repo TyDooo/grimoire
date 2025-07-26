@@ -14,7 +14,6 @@
     obsidian
     plexamp
     spotify
-    vesktop
     whipper
     logseq
     picard
