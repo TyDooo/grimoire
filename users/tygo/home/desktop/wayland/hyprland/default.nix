@@ -31,7 +31,7 @@
       };
 
       input = {
-        kb_layout = "us_intl";
+        kb_layout = "us";
 
         follow_mouse = 1;
         float_switch_override_focus = 1;

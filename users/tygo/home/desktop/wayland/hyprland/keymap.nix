@@ -6,7 +6,7 @@
   wayland.windowManager.hyprland = {
     settings = {
       # Swap the Caps Lock and CTRL keys
-      input.kb_options = "caps:swapescape";
+      # input.kb_options = "caps:swapescape";
 
       bind = let
         workspaces = [
