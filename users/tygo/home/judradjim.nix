@@ -13,7 +13,6 @@
     streamrip
     obsidian
     plexamp
-    spotify
     whipper
     logseq
     picard

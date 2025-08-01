@@ -4,5 +4,6 @@
     ./wayland
 
     ./discord.nix
+    ./spicetify.nix
   ];
 }
