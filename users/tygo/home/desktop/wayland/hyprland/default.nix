@@ -1,4 +1,4 @@
-{config, ...}: {
+{
   imports = [
     ./keymap.nix
     ./monitors.nix
@@ -62,8 +62,10 @@
         rounding = 5;
         rounding_power = 2;
 
-        active_opacity = 1;
-        inactive_opacity = config.stylix.opacity.popups;
+        # TODO: inherit opacity from stylix
+        active_opacity = 0.95;
+        inactive_opacity = 0.8;
+        fullscreen_opacity = 1;
 
         shadow.enabled = false;
 

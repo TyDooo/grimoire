@@ -3,6 +3,9 @@
     monitor = [
       "DP-1,3440x1440@120,auto,1"
       "HDMI-A-2,1920x1080@120,auto-center-left,1,transform,1"
+
+      # Other monitors
+      ",preferred,auto,auto"
     ];
 
     workspace = [
