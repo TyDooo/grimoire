@@ -110,11 +110,6 @@
         ];
       };
 
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_forever = false;
-      };
-
       misc = {
         disable_splash_rendering = true;
         disable_hyprland_logo = true;
