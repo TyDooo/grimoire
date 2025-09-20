@@ -16,7 +16,6 @@
     whipper
     logseq
     picard
-    vscode
     vlc
   ];
 }
