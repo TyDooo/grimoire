@@ -5,6 +5,7 @@
 
   programs.nixcord = {
     enable = true;
+    vesktop.enable = true;
     config = {
       useQuickCss = true;
       frameless = true;
