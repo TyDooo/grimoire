@@ -1,6 +1,5 @@
 {
   inputs,
-  config,
   pkgs,
   lib,
   ...
@@ -9,6 +8,7 @@
     ./programs
 
     inputs.stylix.homeModules.stylix
+    inputs.caelestia-shell.homeManagerModules.default
   ];
 
   nixpkgs = {

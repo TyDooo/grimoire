@@ -12,7 +12,7 @@
       "$mod" = "SUPER";
 
       exec-once = [
-        "waybar"
+        "caelestia-shell"
       ];
 
       binds = {

@@ -2,6 +2,15 @@
   imports = [
     ./hyprland
     ./rofi
-    ./waybar
   ];
+
+  programs.caelestia = {
+    enable = true;
+    systemd.enable = false;
+    settings = {
+      bar.status = {
+        showBattery = false;
+      };
+    };
+  };
 }
