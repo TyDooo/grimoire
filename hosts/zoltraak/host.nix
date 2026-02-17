@@ -56,7 +56,7 @@
         "file_mode=0660"
 
         # Prevent hangs if the server is down
-        "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
+        "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
       ];
     };
   in {
