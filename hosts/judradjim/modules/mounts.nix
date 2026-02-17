@@ -4,8 +4,8 @@
       device = "//tower/${share}";
       fsType = "cifs";
       options = [
-        "uid=tygo"
-        "gid=tygo"
+        "uid=tydooo"
+        "gid=tydooo"
         "file_mode=0770,dir_mode=0770"
         "credentials=${config.sops.secrets."smb-credentials".path}"
         # Stolen from the wiki: this line prevents hanging on network split

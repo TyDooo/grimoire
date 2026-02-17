@@ -29,8 +29,10 @@
 
             [
               ./common/global
-              ../users/tygo/user.nix
+              ../users/tydooo/user.nix
               ../users/root/user.nix
+
+              ../modules/system/nuke.nix # TODO: make modular
 
               ./${hostname}/host.nix
               ./${hostname}/disko.nix
@@ -48,18 +50,13 @@
     );
 in {
   flake.nixosConfigurations = {
-    catastravia = mkHost {
-      hostname = "catastravia";
-      system = "x86_64-linux";
-    };
-
-    judradjim = mkHost {
-      hostname = "judradjim";
-      system = "x86_64-linux";
-      modules = [
-        inputs.chaotic.nixosModules.default
-      ];
-    };
+    # judradjim = mkHost {
+    #   hostname = "judradjim";
+    #   system = "x86_64-linux";
+    #   modules = [
+    #     inputs.chaotic.nixosModules.default
+    #   ];
+    # };
 
     zoltraak = mkHost {
       hostname = "zoltraak";

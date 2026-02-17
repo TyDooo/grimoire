@@ -21,8 +21,8 @@
   };
 
   home = {
-    username = "tygo";
-    homeDirectory = "/home/tygo";
+    username = "tydooo";
+    homeDirectory = "/home/tydooo";
   };
 
   programs.home-manager.enable = true;

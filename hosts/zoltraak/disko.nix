@@ -22,6 +22,13 @@
               content = {
                 type = "btrfs";
                 extraArgs = ["-L" "nixos" "-f"];
+                postCreateHook = ''
+                  MNTPOINT=$(mktemp -d)
+                  mount -t btrfs "$device" "$MNTPOINT"
+                  trap 'umount $MNTPOINT; rm -d $MNTPOINT' EXIT
+                  btrfs subvolume snapshot -r $MNTPOINT/root $MNTPOINT/root-blank
+                  btrfs subvolume snapshot -r $MNTPOINT/home $MNTPOINT/home-blank
+                '';
                 subvolumes = {
                   "/root" = {
                     mountpoint = "/";
@@ -56,6 +63,5 @@
     };
   };
 
-  fileSystems."/persist".neededForBoot = true;
   fileSystems."/var/log".neededForBoot = true;
 }

@@ -71,11 +71,11 @@
 
   systemd.tmpfiles.rules = [
     # type path        mode  user      group  age argument
-    "d    /mnt/games   0775  tygo  users  -   -"
+    "d    /mnt/games   0775  tydooo  users  -   -"
   ];
 
   virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = ["tygo"];
+  users.extraGroups.vboxusers.members = ["tydooo"];
   boot.kernelParams = ["kvm.enable_virt_at_load=0"];
 
   # This option defines the first version of NixOS you have installed on this particular machine,

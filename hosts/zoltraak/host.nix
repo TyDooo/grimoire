@@ -1,15 +1,9 @@
 {
-  config,
   self',
   pkgs,
   ...
 }: {
-  imports = [
-    ./services/navidrome.nix
-    ./services/jellyfin.nix
-    ./services/newt.nix
-    ./services/pocket-id.nix
-  ];
+  imports = [];
 
   networking = {
     networkmanager.enable = true;
@@ -31,33 +25,39 @@
     loader.systemd-boot.enable = true;
   };
 
-  services.qemuGuest.enable = true;
+  programs.dconf.enable = true; # FIXME: needed?
+  services.qemuGuest.enable = true; # FIXME: needed?
 
-  fileSystems = let
-    commonOptions = [
-      "credentials=${config.sops.secrets."smb-creds".path}"
-      "x-systemd.automount"
-      "uid=2000"
-      "gid=2000"
-      "file_mode=0664"
-      "dir_mode=0775"
-      "noauto"
-    ];
-  in {
-    "/mnt/music" = {
-      device = "//192.168.50.20/music";
-      fsType = "cifs";
-      options = commonOptions;
-    };
-
-    "/mnt/media" = {
-      device = "//192.168.50.20/media";
-      fsType = "cifs";
-      options = commonOptions;
-    };
+  modules.system.nuke = {
+    root = true;
+    home = false;
   };
 
-  sops.secrets."smb-creds" = {};
+  # fileSystems = let
+  #   commonOptions = [
+  #     "credentials=${config.sops.secrets."smb-creds".path}"
+  #     "x-systemd.automount"
+  #     "uid=2000"
+  #     "gid=2000"
+  #     "file_mode=0664"
+  #     "dir_mode=0775"
+  #     "noauto"
+  #   ];
+  # in {
+  #   "/mnt/music" = {
+  #     device = "//192.168.50.20/music";
+  #     fsType = "cifs";
+  #     options = commonOptions;
+  #   };
+
+  #   "/mnt/media" = {
+  #     device = "//192.168.50.20/media";
+  #     fsType = "cifs";
+  #     options = commonOptions;
+  #   };
+  # };
+
+  # sops.secrets."smb-creds" = {};
 
   users = {
     users.shared = {

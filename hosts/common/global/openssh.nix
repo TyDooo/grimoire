@@ -8,7 +8,7 @@
   hosts = outputs.nixosConfigurations;
   pubKey = host: ../../${host}/ssh_host_ed25519_key.pub;
 
-  # Sops needs acess to the keys before the persist dirs are even mounted; so
+  # Sops needs access to the keys before the persist dirs are even mounted; so
   # just persisting the keys won't work, we must point at /persist
   hasOptinPersistence = config.environment ? persistence."/persist";
 in {

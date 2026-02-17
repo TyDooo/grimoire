@@ -3,12 +3,11 @@
   pkgs,
   ...
 }: {
-  nix.settings.trusted-users = ["tygo"];
+  nix.settings.trusted-users = ["tydooo"];
 
   users = {
     mutableUsers = false;
-    users.tygo = {
-      description = "Tygo Driessen";
+    users.tydooo = {
       isNormalUser = true;
       shell = pkgs.zsh;
       uid = 1000;
@@ -27,17 +26,17 @@
         "libvirtd"
         "shared"
       ];
-      group = "tygo";
+      group = "tydooo";
 
       openssh.authorizedKeys.keys = [(builtins.readFile ./ssh.pub)];
-      hashedPasswordFile = config.sops.secrets."users/tygo/password".path;
+      hashedPasswordFile = config.sops.secrets."users/tydooo/password".path;
     };
-    groups.tygo.gid = 1000;
+    groups.tydooo.gid = 1000;
   };
 
-  home-manager.users.tygo = import ./home/${config.networking.hostName}.nix;
+  home-manager.users.tydooo = import ./home/${config.networking.hostName}.nix;
 
-  sops.secrets."users/tygo/password" = {
+  sops.secrets."users/tydooo/password" = {
     sopsFile = ./secrets.yaml;
     neededForUsers = true;
   };

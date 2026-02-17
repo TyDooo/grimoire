@@ -47,7 +47,7 @@ chmod 600 ./tmp/persist/etc/ssh/*
 cat ./tmp/persist/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
 
 # Update the relevant secrets files with the new key
-sops updatekeys PATH/TO/SECRETS.yml
+find . -type f -name secrets.yaml -exec sops updatekeys {} \;
 ```
 
 3. Configure the host
