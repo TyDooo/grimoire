@@ -1,6 +1,7 @@
 {
   self',
   pkgs,
+  config,
   ...
 }: {
   imports = [
@@ -35,31 +36,36 @@
     home = false;
   };
 
-  # fileSystems = let
-  #   commonOptions = [
-  #     "credentials=${config.sops.secrets."smb-creds".path}"
-  #     "x-systemd.automount"
-  #     "uid=2000"
-  #     "gid=2000"
-  #     "file_mode=0664"
-  #     "dir_mode=0775"
-  #     "noauto"
-  #   ];
-  # in {
-  #   "/mnt/music" = {
-  #     device = "//192.168.50.20/music";
-  #     fsType = "cifs";
-  #     options = commonOptions;
-  #   };
+  fileSystems = let
+    sharedUid = toString config.users.users.shared.uid;
+    sharedGid = toString config.users.groups.shared.gid;
 
-  #   "/mnt/media" = {
-  #     device = "//192.168.50.20/media";
-  #     fsType = "cifs";
-  #     options = commonOptions;
-  #   };
-  # };
+    mntTowerSMB = share: {
+      device = "//10.10.50.50/${share}";
+      fsType = "cifs";
+      options = [
+        "credentials=${config.sops.secrets."smb-creds".path}"
 
-  # sops.secrets."smb-creds" = {};
+        "uid=${sharedUid}"
+        "gid=${sharedGid}"
+
+        # Access Control:
+        # 0770 = User(RWX) Group(RWX) Others(None)
+        # 0660 = User(RW)  Group(RW)  Others(None)
+        "dir_mode=0770"
+        "file_mode=0660"
+
+        # Prevent hangs if the server is down
+        "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
+      ];
+    };
+  in {
+    "/mnt/user/sauce" = mntTowerSMB "sauce";
+    "/mnt/user/music" = mntTowerSMB "music";
+    "/mnt/user/media" = mntTowerSMB "media";
+  };
+
+  sops.secrets."smb-creds" = {};
 
   users = {
     users.shared = {
@@ -67,6 +73,7 @@
       group = "shared";
       uid = 2000;
     };
+    users.tydooo.extraGroups = ["shared"];
     groups.shared.gid = 2000;
   };
 
