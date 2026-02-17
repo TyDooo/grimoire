@@ -3,7 +3,9 @@
   pkgs,
   ...
 }: {
-  imports = [];
+  imports = [
+    ./services
+  ];
 
   networking = {
     networkmanager.enable = true;
