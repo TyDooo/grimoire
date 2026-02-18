@@ -15,11 +15,20 @@
 
       TZ = "Europe/Amsterdam";
 
-      # TODO: add BASE_URL and OPENAI_API_KEY
-
       SECURITY_MAX_LOGIN_ATTEMPTS = "3";
       SECURITY_USER_LOCKOUT_TIME = "24";
+
+      OIDC_AUTH_ENABLED = true;
+      OIDC_SIGNUP_ENABLED = true;
+      OIDC_PROVIDER_NAME = "Pocket ID";
     };
+
+    credentialsFile = config.sops.secrets."mealie-env".path;
+  };
+
+  sops.secrets."mealie-env" = {
+    owner = "mealie";
+    group = "mealie";
   };
 
   networking.firewall.allowedTCPPorts = [
