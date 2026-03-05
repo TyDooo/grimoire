@@ -8,6 +8,8 @@
   inherit (self) outputs;
   inherit (lib.lists) singleton concatLists;
 
+  vars = import ../vars/private.nix;
+
   mkHost = {
     hostname,
     system,
@@ -20,7 +22,7 @@
         ...
       }:
         inputs.nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs outputs inputs' self';};
+          specialArgs = {inherit inputs outputs inputs' self' vars;};
           modules = concatLists [
             (singleton {
               networking.hostName = hostname;

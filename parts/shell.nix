@@ -43,6 +43,7 @@
         pkgs.ssh-to-age
         pkgs.gnupg
         pkgs.age
+        pkgs.git-crypt
       ];
     };
   };
