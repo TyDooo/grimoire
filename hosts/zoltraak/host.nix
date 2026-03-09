@@ -5,25 +5,24 @@
 }: {
   imports = [
     # ./services
+    ./filesystems.nix
   ];
 
   networking = {
     networkmanager.enable = true;
+    hostId = "1f4d827b";
   };
 
   environment.systemPackages = with pkgs; [
     wget
     helix
+    btop
     git
     self'.packages.nvim
   ];
 
   boot = {
-    initrd = {
-      systemd.enable = true;
-      supportedFilesystems = ["btrfs"];
-    };
-
+    initrd.systemd.enable = true;
     loader.systemd-boot.enable = true;
   };
 
