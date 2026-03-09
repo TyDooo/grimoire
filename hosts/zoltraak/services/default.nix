@@ -2,8 +2,8 @@
   imports = [
     ./media
 
-    ./mealie.nix
-    ./navidrome.nix
-    ./postgresql.nix
+    # ./mealie.nix
+    # ./navidrome.nix
+    # ./postgresql.nix
   ];
 }

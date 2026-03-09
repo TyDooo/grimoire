@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    # ./services
+    ./services
     ./filesystems.nix
   ];
 
@@ -32,6 +32,27 @@
     root = true;
     home = false;
   };
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-ocl
+      intel-media-driver
+      intel-compute-runtime-legacy1
+    ];
+  };
+
+  users = {
+    users.tydooo.extraGroups = ["media"];
+    groups.media = {};
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /mnt/user/media 0770 root media - -"
+    "d /mnt/user/media/movies 0775 root media - -"
+    "d /mnt/user/media/shows 0775 root media - -"
+    "d /mnt/user/media/anime 0775 root media - -"
+  ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
