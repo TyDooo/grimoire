@@ -3,7 +3,7 @@
     disk = {
       sda = {
         type = "disk";
-        device = "/dev/vda";
+        device = "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_500GB_S3R3NF1JA65632X";
         content = {
           type = "gpt";
           partitions = {

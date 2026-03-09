@@ -1,7 +1,6 @@
 keys:
   - &admin_tydooo 85B0B835399023EB
-  - &host_aerial age12z33lxgk5m0zv2pqze7kqmfu5rx98u7g0w2rueqp0gyqdr7r8gasy8eqd0
-  - &host_zoltraak age1ut376ghqmyywvg5ewtwecssad0al4636279my8gn6vtd0zd7cpmqgywx6u
+  - &host_zoltraak age13d2pjc2jd54e5czgscpatrtu6dh7kycz08eger5vey6n98s2s5tsf59utr
   - &host_judradjim age166v46ym7gw72fkncca0k7q0u7x60yle2utkzw27apmr7rrylfccqmaypev
 creation_rules:
   - path_regex: hosts/common/secrets.ya?ml$
@@ -9,7 +8,6 @@ creation_rules:
       - pgp:
           - *admin_tydooo
         age:
-          - *host_aerial
           - *host_zoltraak
           - *host_judradjim
   - path_regex: users/[^/]+/secrets.ya?ml$
@@ -17,7 +15,6 @@ creation_rules:
       - pgp:
           - *admin_tydooo
         age:
-          - *host_aerial
           - *host_zoltraak
           - *host_judradjim
   - path_regex: hosts/zoltraak/secrets.ya?ml$
