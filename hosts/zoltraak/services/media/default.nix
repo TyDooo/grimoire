@@ -4,6 +4,7 @@
     # ./flaresolverr.nix
     ./jellyfin.nix
     ./plex.nix
+    ./shoko.nix
     # ./sonarr.nix
     # ./radarr.nix
     # ./prowlarr.nix
