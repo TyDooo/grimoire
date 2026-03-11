@@ -35,6 +35,7 @@
               ../users/root/user.nix
 
               ../modules/system/nuke.nix # TODO: make modular
+              ../modules/misc/mover
 
               ./${hostname}/host.nix
               ./${hostname}/disko.nix
