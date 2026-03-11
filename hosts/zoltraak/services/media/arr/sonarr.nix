@@ -5,7 +5,6 @@
     dataDir = "/var/lib/sonarr";
   };
 
-  # Add the Sonarr user to the media group to allow access to the library
   users.users.sonarr.extraGroups = ["media"];
 
   environment.persistence = {

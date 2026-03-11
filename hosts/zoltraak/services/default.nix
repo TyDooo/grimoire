@@ -7,5 +7,6 @@
     # ./navidrome.nix
     ./netbird-client.nix
     # ./postgresql.nix
+    ./qbittorrent.nix
   ];
 }

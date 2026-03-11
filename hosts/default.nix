@@ -63,6 +63,9 @@ in {
     zoltraak = mkHost {
       hostname = "zoltraak";
       system = "x86_64-linux";
+      modules = [
+        inputs.vpn-confinement.nixosModules.default
+      ];
     };
   };
 }

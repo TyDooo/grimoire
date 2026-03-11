@@ -4,7 +4,7 @@
     port = 51820;
     interface = "wt0";
     ui.enable = false;
-    autoStart = false;
+    autoStart = true;
   };
 
   users.users.tydooo.extraGroups = ["netbird-default"];

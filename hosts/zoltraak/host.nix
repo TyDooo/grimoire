@@ -6,6 +6,7 @@
   imports = [
     ./services
     ./filesystems.nix
+    ./vpn.nix
   ];
 
   networking = {
@@ -44,14 +45,24 @@
 
   users = {
     users.tydooo.extraGroups = ["media"];
-    groups.media = {};
+    groups = {
+      media = {};
+    };
+  };
+
+  systemd.services.systemd-tmpfiles-setup = {
+    after = ["mnt-user.mount"];
+    requires = ["mnt-user.mount"];
   };
 
   systemd.tmpfiles.rules = [
-    "d /mnt/user/media 0770 root media - -"
-    "d /mnt/user/media/movies 0775 root media - -"
-    "d /mnt/user/media/shows 0775 root media - -"
-    "d /mnt/user/media/anime 0775 root media - -"
+    "d /mnt/user/media        0770 root media - -"
+    "d /mnt/user/media/movies 2775 root media - -"
+    "d /mnt/user/media/shows  2775 root media - -"
+    "d /mnt/user/media/anime  2775 root media - -"
+    "d /mnt/user/media/import 2775 root media - -"
+
+    "d /mnt/user/downloads    0775 root media - -"
   ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,

@@ -5,7 +5,6 @@
     dataDir = "/var/lib/radarr";
   };
 
-  # Add the Radarr user to the media group to allow access to the library
   users.users.radarr.extraGroups = ["media"];
 
   environment.persistence = {

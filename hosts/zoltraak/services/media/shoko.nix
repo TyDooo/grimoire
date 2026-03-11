@@ -19,6 +19,10 @@
     Group = "shoko";
   };
 
+  systemd.tmpfiles.rules = [
+    "d ${media_dir}/import/anime 2775 shoko media - -"
+  ];
+
   environment.persistence = {
     "/persist".directories = [
       {
