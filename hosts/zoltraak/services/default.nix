@@ -8,5 +8,6 @@
     ./netbird-client.nix
     # ./postgresql.nix
     ./qbittorrent.nix
+    ./sabnzbd.nix
   ];
 }

@@ -5,7 +5,5 @@
     accessibleFrom = ["127.0.0.1" "10.10.0.0/16"];
   };
 
-  networking.firewall.allowedTCPPorts = [8182];
-
   sops.secrets."vpn/proton" = {};
 }

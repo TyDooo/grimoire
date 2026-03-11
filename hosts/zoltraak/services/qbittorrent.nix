@@ -120,4 +120,6 @@ in {
     from = port;
     to = port;
   };
+
+  networking.firewall.allowedTCPPorts = [port];
 }
