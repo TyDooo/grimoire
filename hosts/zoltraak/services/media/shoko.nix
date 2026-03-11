@@ -20,7 +20,7 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d ${media_dir}/import/anime 2775 shoko media - -"
+    "d /mnt/user/media/import/anime 2775 shoko media - -"
   ];
 
   environment.persistence = {
