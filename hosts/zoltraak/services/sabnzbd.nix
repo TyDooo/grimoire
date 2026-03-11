@@ -8,6 +8,7 @@
 in {
   services.sabnzbd = {
     enable = true;
+    group = "media";
     configFile = null;
     allowConfigWrite = true;
     # secretFiles = [config.sops.secrets."sabnzbd".path];

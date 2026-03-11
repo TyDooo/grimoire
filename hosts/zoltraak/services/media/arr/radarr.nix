@@ -1,11 +1,10 @@
 {config, ...}: {
   services.radarr = {
     enable = true;
+    group = "media";
     openFirewall = true;
     dataDir = "/var/lib/radarr";
   };
-
-  users.users.radarr.extraGroups = ["media"];
 
   environment.persistence = {
     "/persist".directories = [

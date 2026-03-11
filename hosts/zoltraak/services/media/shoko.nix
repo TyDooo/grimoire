@@ -5,18 +5,16 @@
   };
 
   users = {
-    groups.shoko = {};
     users.shoko = {
-      group = "shoko";
+      group = "media";
       isSystemUser = true;
-      extraGroups = ["media"];
     };
   };
 
   systemd.services.shoko.serviceConfig = {
     DynamicUser = lib.mkForce false;
     User = "shoko";
-    Group = "shoko";
+    Group = "media";
   };
 
   systemd.tmpfiles.rules = [
@@ -28,7 +26,7 @@
       {
         directory = "/var/lib/shoko";
         user = "shoko";
-        group = "shoko";
+        group = "media";
         mode = "0750";
       }
     ];

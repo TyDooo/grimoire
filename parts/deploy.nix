@@ -8,7 +8,7 @@
     magicRollback = true;
     nodes = {
       zoltraak = {
-        hostname = "10.10.50.202";
+        hostname = "10.10.50.50";
 
         profilesOrder = ["system"];
         profiles.system = {
