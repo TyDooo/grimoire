@@ -79,13 +79,14 @@ in {
   };
 
   systemd.tmpfiles.rules = [
-    "d /mnt/user/downloads/usenet                 0770 sabnzbd media - -"
-    "d /mnt/user/downloads/usenet/complete        2770 sabnzbd media - -"
-    "d /mnt/user/downloads/usenet/complete/movies 2770 sabnzbd media - -"
-    "d /mnt/user/downloads/usenet/complete/shows  2770 sabnzbd media - -"
-    "d /mnt/user/downloads/usenet/complete/music  2770 sabnzbd media - -"
-    "d /mnt/user/downloads/usenet/complete/anime  2770 sabnzbd media - -"
-    "d /mnt/user/downloads/usenet/incomplete      2750 sabnzbd media - -"
+    "d /mnt/user/downloads/usenet                   0770 sabnzbd media - -"
+    "d /mnt/user/downloads/usenet/complete          2770 sabnzbd media - -"
+    "d /mnt/user/downloads/usenet/complete/movies   2770 sabnzbd media - -"
+    "d /mnt/user/downloads/usenet/complete/shows    2770 sabnzbd media - -"
+    "d /mnt/user/downloads/usenet/complete/music    2770 sabnzbd media - -"
+    "d /mnt/user/downloads/usenet/complete/anime    2770 sabnzbd media - -"
+    "d /mnt/user/downloads/usenet/complete/prowlarr 2770 sabnzbd media - -"
+    "d /mnt/user/downloads/usenet/incomplete        2750 sabnzbd media - -"
   ];
 
   environment.persistence = {
