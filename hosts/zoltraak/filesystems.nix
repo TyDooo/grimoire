@@ -2,7 +2,10 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  pathTank = "/mnt/disks/tank";
+  pathGlass = "/mnt/disks/glass";
+in {
   boot = {
     initrd.supportedFilesystems = ["btrfs" "zfs"];
     zfs.forceImportRoot = false;
@@ -16,12 +19,12 @@
   ];
 
   fileSystems = {
-    "/mnt/disks/tank" = {
+    "${pathTank}" = {
       device = "tank";
       fsType = "zfs";
     };
 
-    "/mnt/disks/glass" = {
+    "${pathGlass}" = {
       device = "glass";
       fsType = "zfs";
     };
@@ -37,9 +40,10 @@
     };
 
     "/mnt/slow" = {
-      # Merges the spinning rust disks into a single target. Don't use for
-      # important data (instead, write to /mnt/disks/tank directly)!!!!!
-      device = "/mnt/disks/glass:/mnt/disks/tank";
+      # Merges the spinning rust disks into a single target. Mainly used
+      # as a target for the mover. Don't use for important data (instead,
+      # write to /mnt/disks/tank directly)!!!!!
+      device = "${pathGlass}:${pathTank}";
       fsType = "fuse.mergerfs";
       options = [
         "category.create=epff"
@@ -55,7 +59,7 @@
     "/mnt/user" = {
       # Puts the cache drive in front of the slow disks. Don't use for
       # important data (instead, write to /mnt/disks/tank directly)!!!!!
-      device = "/mnt/disks/cache:/mnt/slow";
+      device = "/mnt/disks/cache:/mnt/slow"; # TODO: change to /mnt/disks/cache:${pathGlass}:${pathTank}?
       fsType = "fuse.mergerfs";
       options = [
         "category.create=epff"

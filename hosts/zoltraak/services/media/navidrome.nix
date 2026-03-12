@@ -1,5 +1,5 @@
 {config, ...}: let
-  musicPath = "/mnt/user/music";
+  musicPath = "/mnt/user/media/music";
 in {
   services.navidrome = {
     enable = true;
@@ -17,7 +17,7 @@ in {
   };
 
   systemd.tmpfiles.rules = [
-    "d /mnt/user/media/music 2775 root media - -"
+    "d ${musicPath} 2755 tydooo media - -"
   ];
 
   # Add the navidrome user to the media group to allow access to the library

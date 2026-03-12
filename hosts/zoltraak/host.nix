@@ -5,20 +5,17 @@
 }: {
   imports = [
     ./services
-    ./filesystems.nix
-    ./vpn.nix
-  ];
 
-  networking = {
-    networkmanager.enable = true;
-    hostId = "1f4d827b";
-  };
+    ./filesystems.nix
+    ./networking.nix
+  ];
 
   environment.systemPackages = with pkgs; [
     wget
     helix
     btop
     git
+    rsync
     self'.packages.nvim
   ];
 
