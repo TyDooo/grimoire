@@ -64,3 +64,4 @@ This configuration is inspired by and borrows from:
 - [Misterio77/nix-config](https://github.com/Misterio77/nix-config/tree/main)
 - [niksingh710/ndots](https://github.com/niksingh710/ndots)
 - [JManch/nixos](https://github.com/JManch/nixos)
+- [notthebee/nix-config](https://git.notthebe.ee/notthebee/nix-config)
