@@ -6,6 +6,10 @@
     dataDir = "/var/lib/sonarr";
   };
 
+  systemd.tmpfiles.rules = [
+    "d /mnt/user/media/shows 2775 root media - -"
+  ];
+
   environment.persistence = {
     "/persist".directories = [
       {

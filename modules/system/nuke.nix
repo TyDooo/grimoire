@@ -9,9 +9,9 @@
 
   toSystemdDevice = device: lib.concatStringsSep "-" (lib.tail (map (lib.replaceString "-" "\\x2d") (lib.splitString "/" device))) + ".device";
 
-  cfg = config.modules.system.nuke;
+  cfg = config.system.nuke;
 in {
-  options.modules.system.nuke = {
+  options.system.nuke = {
     root = mkOption {
       default = false;
       description = "Nuke root directory";

@@ -6,6 +6,10 @@
     dataDir = "/var/lib/radarr";
   };
 
+  systemd.tmpfiles.rules = [
+    "d /mnt/user/media/movies 2775 root media - -"
+  ];
+
   environment.persistence = {
     "/persist".directories = [
       {

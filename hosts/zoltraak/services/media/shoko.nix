@@ -18,6 +18,8 @@
   };
 
   systemd.tmpfiles.rules = [
+    "d /mnt/user/media/anime        2775 root  media - -"
+    "d /mnt/user/media/import       2775 root  media - -"
     "d /mnt/user/media/import/anime 2775 shoko media - -"
   ];
 

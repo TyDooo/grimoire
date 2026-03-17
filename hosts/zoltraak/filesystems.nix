@@ -5,10 +5,25 @@
 }: let
   pathTank = "/mnt/disks/tank";
   pathGlass = "/mnt/disks/glass";
+  pathCache = "/mnt/disks/cache";
+  pathSlow = "/mnt/slow";
 in {
   boot = {
     initrd.supportedFilesystems = ["btrfs" "zfs"];
     zfs.forceImportRoot = false;
+  };
+
+  system.nuke = {
+    root = true; # Remove the root directory on each boot
+    home = false;
+  };
+
+  services.mover = {
+    enable = true;
+    cacheMount = pathCache;
+    slowStorage = pathSlow;
+    thresholdPercent = 70;
+    targetPercent = 30;
   };
 
   programs.fuse.userAllowOther = lib.mkForce true;
@@ -29,7 +44,7 @@ in {
       fsType = "zfs";
     };
 
-    "/mnt/disks/cache" = {
+    "${pathCache}" = {
       device = "UUID=f1209f58-c197-41f6-b921-0532da5dea59";
       fsType = "btrfs";
     };
@@ -59,7 +74,7 @@ in {
     "/mnt/user" = {
       # Puts the cache drive in front of the slow disks. Don't use for
       # important data (instead, write to /mnt/disks/tank directly)!!!!!
-      device = "/mnt/disks/cache:/mnt/slow"; # TODO: change to /mnt/disks/cache:${pathGlass}:${pathTank}?
+      device = "${pathCache}:${pathSlow}"; # TODO: change to ${pathCache}:${pathGlass}:${pathTank}?
       fsType = "fuse.mergerfs";
       options = [
         "category.create=epff"

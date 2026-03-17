@@ -26,11 +26,6 @@
 
   programs.dconf.enable = true; # FIXME: needed?
 
-  modules.system.nuke = {
-    root = true;
-    home = false;
-  };
-
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
@@ -53,22 +48,8 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /mnt/user/media        0770 root media - -"
-    "d /mnt/user/media/movies 2775 root media - -"
-    "d /mnt/user/media/shows  2775 root media - -"
-    "d /mnt/user/media/anime  2775 root media - -"
-    "d /mnt/user/media/import 2775 root media - -"
-
-    "d /mnt/user/downloads    0775 root media - -"
+    "d /mnt/user/downloads 0775 root media - -"
   ];
-
-  services.mover = {
-    enable = true;
-    cacheMount = "/mnt/disks/cache";
-    slowStorage = "/mnt/slow";
-    thresholdPercent = 70;
-    targetPercent = 30;
-  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
