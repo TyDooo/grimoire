@@ -10,5 +10,6 @@
     ./postgresql.nix
     ./qbittorrent.nix
     ./sabnzbd.nix
+    ./samba.nix
   ];
 }
