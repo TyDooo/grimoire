@@ -38,6 +38,7 @@
               ../modules/system/nuke.nix
               ../modules/services/nfs-exports.nix
               ../modules/misc/mover
+              ../modules/misc/forward
 
               ./${hostname}/host.nix
               ./${hostname}/disko.nix
