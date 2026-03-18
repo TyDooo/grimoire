@@ -5,7 +5,7 @@
     ./beszel.nix
     ./frigate.nix
     ./immich.nix
-    # ./mealie.nix
+    ./mealie.nix
     ./netbird-client.nix
     ./nfs.nix
     ./postgresql.nix

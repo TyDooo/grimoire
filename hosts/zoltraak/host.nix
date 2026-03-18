@@ -48,6 +48,8 @@
   };
 
   systemd.tmpfiles.rules = [
+    "d /var/lib/private 0700 root root - -"
+
     "d /mnt/user/downloads 0775 root media - -"
   ];
 
