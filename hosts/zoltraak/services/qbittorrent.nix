@@ -10,6 +10,7 @@
   media_dir = "/mnt/user/media";
   torrents_dir = "/mnt/user/downloads/torrents";
 
+  # FIXME: hard-linking directories fails
   anime_import = pkgs.writeShellScriptBin "qbit_anime_import" ''
     set -euo pipefail
 
@@ -58,6 +59,22 @@ in {
     webuiPort = port;
     serverConfig = {
       LegalNotice.Accepted = true;
+      BitTorrent = {
+        Session = {
+          DisableAutoTMMByDefault = false;
+          DisableAutoTMMTriggers = {
+            CategorySavePathChanged = false;
+            DefaultSavePathChanged = false;
+          };
+          MaxActiveTorrents = 5;
+          MaxActiveDownloads = 3;
+          MaxActiveUploads = 3;
+          GlobalMaxRatio = 1;
+          GlobalMaxSeedingMinutes = 2880;
+          Preallocation = true;
+          QueueingSystemEnabled = true;
+        };
+      };
       Preferences = {
         Downloads = {
           SavePath = torrents_dir;
@@ -67,6 +84,8 @@ in {
         WebUI = {
           Username = "admin";
           Password_PBKDF2 = "@ByteArray(CoN9QpoAVRjklid65alTCw==:Iut59EjN2G9vrFcDwSFASc2xxt5F/TK3N3nFQEO3rEGHBj7Z0Cy61uNmS3Gy2bCk0bNIG+PMp20yOYwkBkcxyg==)";
+          LocalHostAuth = false;
+          UseUPnP = false;
         };
       };
       AutoRun = {
