@@ -65,3 +65,4 @@ This configuration is inspired by and borrows from:
 - [niksingh710/ndots](https://github.com/niksingh710/ndots)
 - [JManch/nixos](https://github.com/JManch/nixos)
 - [notthebee/nix-config](https://git.notthebe.ee/notthebee/nix-config)
+- [darkone-linux/darkone-nixos-framework](https://github.com/darkone-linux/darkone-nixos-framework)

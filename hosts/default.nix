@@ -34,7 +34,9 @@
               ../users/tydooo/user.nix
               ../users/root/user.nix
 
-              ../modules/system/nuke.nix # TODO: make modular
+              # TODO: make modular
+              ../modules/system/nuke.nix
+              ../modules/services/nfs-exports.nix
               ../modules/misc/mover
 
               ./${hostname}/host.nix
