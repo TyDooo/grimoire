@@ -11,10 +11,6 @@
     settings = {
       "$mod" = "SUPER";
 
-      exec-once = [
-        "caelestia-shell"
-      ];
-
       binds = {
         allow_workspace_cycles = false;
         focus_preferred_method = 1;
