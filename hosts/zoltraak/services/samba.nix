@@ -24,6 +24,15 @@
         "force user" = "immich";
         "force group" = "immich";
       };
+      "backup" = {
+        "path" = "/mnt/disks/tank/backup";
+        "browseable" = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "valid users" = "pve, homeassistant";
+        "force user" = "root";
+        "force group" = "backup";
+      };
     };
   };
 

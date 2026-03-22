@@ -36,9 +36,10 @@
   };
 
   users = {
-    users.tydooo.extraGroups = ["media"];
+    users.tydooo.extraGroups = ["media" "backup"];
     groups = {
       media = {};
+      backup = {};
     };
   };
 
@@ -48,9 +49,12 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /var/lib/private 0700 root root - -"
+    "d /var/lib/private    0700 root root   - -"
+    "d /mnt/user/downloads 0775 root media  - -"
 
-    "d /mnt/user/downloads 0775 root media - -"
+    "d /mnt/disks/tank/backup 2775 root backup - -"
+    "d /mnt/disks/tank/backup/home_assistant 2775 root backup - -"
+    "d /mnt/disks/tank/backup/proxmox        2775 root backup - -"
   ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,

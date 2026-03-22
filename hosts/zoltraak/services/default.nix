@@ -10,6 +10,7 @@
     ./nfs.nix
     ./postgresql.nix
     ./qbittorrent.nix
+    ./rest-server.nix
     ./sabnzbd.nix
     ./samba.nix
   ];
