@@ -15,8 +15,6 @@ in {
     database = {
       enable = true;
       createDB = true;
-      enableVectors = false;
-      enableVectorChord = true;
     };
     accelerationDevices = ["/dev/dri/renderD128"];
   };
