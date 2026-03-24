@@ -55,9 +55,6 @@ in {
     # judradjim = mkHost {
     #   hostname = "judradjim";
     #   system = "x86_64-linux";
-    #   modules = [
-    #     inputs.chaotic.nixosModules.default
-    #   ];
     # };
 
     zoltraak = mkHost {

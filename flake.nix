@@ -14,8 +14,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-
     nixcord.url = "github:kaylorben/nixcord";
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
