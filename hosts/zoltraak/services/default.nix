@@ -3,6 +3,7 @@
     ./media
 
     ./beszel.nix
+    ./copyparty.nix
     ./frigate.nix
     ./immich.nix
     ./mealie.nix
