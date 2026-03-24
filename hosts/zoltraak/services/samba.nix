@@ -33,6 +33,15 @@
         "force user" = "root";
         "force group" = "backup";
       };
+      "media" = {
+        "path" = "/mnt/user/media";
+        "browseable" = "yes";
+        "read only" = "yes";
+        "guest ok" = "no";
+        "valid users" = "tydooo";
+        "force user" = "root";
+        "force group" = "media";
+      };
     };
   };
 
