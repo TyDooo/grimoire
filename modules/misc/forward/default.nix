@@ -87,6 +87,7 @@ in {
           path = with pkgs; [wget libnatpmp ripgrep iptables];
 
           script = ''
+            # bash
             set -u
 
             port_file="/tmp/${vpnNamespace}-port"
@@ -99,6 +100,15 @@ in {
 
             new_port="$(echo "$result" | rg --only-matching --replace '$1' 'Mapped public port (\d+) protocol')"
             echo "$new_port" > "$port_file"
+
+            ${optionalString forwardConfig.qbittorrent.enable ''
+              echo "Updating qBittorrent listen port to $new_port..."
+              wget -O- -nv --retry-connrefused \
+                --post-data "json={\"listen_port\":$new_port,\"current_network_interface\":\"${vpnNamespace}0\",\"random_port\":false,\"upnp\":false}" \
+                http://127.0.0.1:${toString forwardConfig.qbittorrent.port}/api/v2/app/setPreferences
+              echo ""
+            ''}
+
             if [ "$new_port" = "$old_port" ]; then
               echo "Port unchanged ($new_port), nothing to do."
               exit 0
@@ -115,14 +125,6 @@ in {
               fi
             done
 
-            ${optionalString forwardConfig.qbittorrent.enable ''
-              echo "Updating qBittorrent listen port to $new_port..."
-              wget -O- -nv --retry-connrefused \
-                --post-data "json={\"listen_port\":$new_port,\"current_network_interface\":\"${vpnNamespace}0\",\"random_port\":false,\"upnp\":false}" \
-                http://127.0.0.1:${toString forwardConfig.qbittorrent.port}/api/v2/app/setPreferences
-              echo ""
-            ''}
-
             # Close old port if it changed
             if [ -n "$old_port" ]; then
               for proto in udp tcp; do
@@ -137,5 +139,6 @@ in {
       enabledNamespaces;
 
       # TODO: set qbittorrent port to 0 if the VPN interface goes down
+      # TODO: set qbittorrent port after qbittorrent restart
     };
 }
