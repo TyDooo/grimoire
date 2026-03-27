@@ -44,6 +44,12 @@ in {
       fsType = "zfs";
     };
 
+    # Had some issues with ZFS automount, so mountpoint=legacy it is
+    "${pathTank}/immich" = {
+      device = "tank/immich";
+      fsType = "zfs";
+    };
+
     "${pathCache}" = {
       device = "UUID=f1209f58-c197-41f6-b921-0532da5dea59";
       fsType = "btrfs";
