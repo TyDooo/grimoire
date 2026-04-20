@@ -5,7 +5,7 @@
 
     shares = {
       music.source = "/mnt/disks/tank/media/music";
-      sauce.source = "/mnt/user/sauce";
+      sauce.source = "/mnt/disks/tank/sauce";
     };
   };
 }

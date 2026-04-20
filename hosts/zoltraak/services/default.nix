@@ -14,5 +14,6 @@
     ./rest-server.nix
     ./sabnzbd.nix
     ./samba.nix
+    ./stash.nix
   ];
 }

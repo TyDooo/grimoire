@@ -49,6 +49,10 @@ in {
       device = "tank/immich";
       fsType = "zfs";
     };
+    "${pathTank}/sauce" = {
+      device = "tank/sauce";
+      fsType = "zfs";
+    };
 
     "${pathCache}" = {
       device = "UUID=f1209f58-c197-41f6-b921-0532da5dea59";

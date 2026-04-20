@@ -4,7 +4,7 @@
     TyDooo's Nix Config
 </h1>
 
-![NixOS](https://img.shields.io/badge/NixOS-24.11-blue.svg)
+![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg)
 ![System Architecture](https://img.shields.io/badge/arch-x86__64--linux-lightgrey)
 
 My personal NixOS and Home Manager configuration files. This repository contains
