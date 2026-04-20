@@ -38,13 +38,15 @@
       clang.enable = true;
       css.enable = true;
       html.enable = true;
-      ts.enable = true;
+      typescript.enable = true;
       go.enable = true;
-      tailwind.enable = true;
       svelte.enable = true;
     };
 
-    lsp.enable = true;
+    lsp = {
+      enable = true;
+      presets.tailwindcss-language-server.enable = true;
+    };
 
     visuals = {
       nvim-scrollbar.enable = true;

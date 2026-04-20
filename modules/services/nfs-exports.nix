@@ -70,6 +70,7 @@ in {
         name: share:
           lib.nameValuePair "${cfg.basePath}/${name}" {
             device = share.source;
+            fsType = "none";
             options = ["bind"];
           }
       )
