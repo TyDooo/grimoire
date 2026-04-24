@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   services.stash = {
     enable = true;
     openFirewall = true;
@@ -24,6 +28,10 @@
       ];
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    google-chrome
+  ];
 
   sops.secrets = {
     "stash/password" = {
