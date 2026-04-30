@@ -15,5 +15,6 @@
     ./sabnzbd.nix
     ./samba.nix
     ./stash.nix
+    ./trek.nix
   ];
 }
