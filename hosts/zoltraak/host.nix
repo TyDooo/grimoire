@@ -16,7 +16,6 @@
     btop
     git
     rsync
-    self'.packages.nvim
   ];
 
   boot = {

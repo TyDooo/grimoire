@@ -24,7 +24,6 @@
     wget
     helix
     git
-    self'.packages.nvim
     inputs'.zen-browser.packages.default
   ];
 

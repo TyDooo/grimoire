@@ -15,7 +15,6 @@ setup, and application configurations.
 
 - 🏠 Home Manager configuration for user environment
 - 🔒 Secret management with [sops-nix](https://github.com/Mic92/sops-nix)
-- 📝 [Neovim configuration](/parts/nvim/) using [nvf](https://github.com/NotAShelf/nvf)
 - 💻 Multi-host configuration with shared modules
 - 🔄 Automated system deployment with **nixos-anywhere**
 - 💾 Disk partitioning and formatting with **disko**

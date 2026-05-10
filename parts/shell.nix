@@ -3,7 +3,6 @@
   perSystem = {
     inputs',
     config,
-    self',
     pkgs,
     ...
   }: {
@@ -30,8 +29,6 @@
         config.treefmt.build.wrapper
 
         inputs'.deploy-rs.packages.default
-
-        self'.packages.nvim
 
         pkgs.alejandra
         pkgs.nixos-anywhere
