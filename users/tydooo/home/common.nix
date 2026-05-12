@@ -27,6 +27,9 @@
   programs.home-manager.enable = true;
   news.display = "silent";
 
+  # Silence GTK theme warning during build
+  gtk.gtk4.theme = null;
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
