@@ -1,47 +1,50 @@
-{inputs, ...}: {
-  imports = [inputs.devshell.flakeModule];
-  perSystem = {
-    inputs',
-    config,
-    pkgs,
-    ...
-  }: {
-    devshells.default = {
-      env = [
-        {
-          name = "DIRENV_LOG_FORMAT";
-          value = "";
-        }
-      ];
+{ inputs, ... }:
+{
+  imports = [ inputs.devshell.flakeModule ];
+  perSystem =
+    {
+      inputs',
+      config,
+      pkgs,
+      ...
+    }:
+    {
+      devshells.default = {
+        env = [
+          {
+            name = "DIRENV_LOG_FORMAT";
+            value = "";
+          }
+        ];
 
-      commands = [
-        {
-          name = "switch";
-          command = "nixos-rebuild switch --flake . --sudo";
-        }
-        {
-          name = "boot";
-          command = "nixos-rebuild boot --flake . --sudo";
-        }
-      ];
+        commands = [
+          {
+            name = "switch";
+            command = "nixos-rebuild switch --flake . --sudo";
+          }
+          {
+            name = "boot";
+            command = "nixos-rebuild boot --flake . --sudo";
+          }
+        ];
 
-      packages = [
-        config.treefmt.build.wrapper
+        packages = [
+          config.treefmt.build.wrapper
 
-        inputs'.deploy-rs.packages.default
+          inputs'.deploy-rs.packages.default
 
-        pkgs.alejandra
-        pkgs.nixos-anywhere
+          pkgs.nixfmt
+          pkgs.nixos-anywhere
 
-        pkgs.git # Required to use flakes
+          pkgs.git # Required to use flakes
 
-        # Secrets related stuff
-        pkgs.sops
-        pkgs.ssh-to-age
-        pkgs.gnupg
-        pkgs.age
-        pkgs.git-crypt
-      ];
+          # Secrets related stuff
+          pkgs.sops
+          pkgs.ssh-to-age
+          pkgs.gnupg
+          pkgs.age
+          pkgs.git-crypt
+        ];
+      };
     };
-  };
 }

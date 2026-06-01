@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   dataDir = "/var/lib/trek";
-in {
+in
+{
   systemd.tmpfiles.rules = [
     "d ${dataDir} 0755 root root - -"
     "d ${dataDir}/data 0755 root root - -"
@@ -14,7 +16,7 @@ in {
   virtualisation.oci-containers.containers.trek = {
     image = "mauriceboe/trek:3";
     autoStart = true;
-    extraOptions = ["--tmpfs=/tmp:noexec,nosuid,size=64m"];
+    extraOptions = [ "--tmpfs=/tmp:noexec,nosuid,size=64m" ];
     environment = {
       NODE_ENV = "production";
       TZ = "Europe/Amsterdam";
@@ -29,10 +31,10 @@ in {
     ports = [
       "3020:3000"
     ];
-    environmentFiles = [config.sops.secrets."trek/env".path];
+    environmentFiles = [ config.sops.secrets."trek/env".path ];
   };
 
-  sops.secrets."trek/env" = {};
+  sops.secrets."trek/env" = { };
 
   environment.persistence = {
     "/persist".directories = [

@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   services.stash = {
     enable = true;
     openFirewall = true;

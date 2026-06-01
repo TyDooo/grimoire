@@ -3,13 +3,15 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.strings) versionOlder versionAtLeast;
 
   kver = config.boot.kernelPackages.kernel.version;
-in {
-  environment.systemPackages = [pkgs.amdctl];
+in
+{
+  environment.systemPackages = [ pkgs.amdctl ];
 
   hardware.cpu.amd.updateMicrocode = true;
   boot = mkMerge [
@@ -24,24 +26,24 @@ in {
         "zenpower" # zenpower is for reading cpu info, i.e voltage
         "msr" # x86 CPU MSR access device
       ];
-      kernelParams = ["amd_iommu=on"];
-      extraModulePackages = [config.boot.kernelPackages.zenpower];
+      kernelParams = [ "amd_iommu=on" ];
+      extraModulePackages = [ config.boot.kernelPackages.zenpower ];
     }
 
     (mkIf ((versionAtLeast kver "5.17") && (versionOlder kver "6.1")) {
-      kernelParams = ["initcall_blacklist=acpi_cpufreq_init"];
-      kernelModules = ["amd-pstate"];
+      kernelParams = [ "initcall_blacklist=acpi_cpufreq_init" ];
+      kernelModules = [ "amd-pstate" ];
     })
 
     (mkIf ((versionAtLeast kver "6.1") && (versionOlder kver "6.3")) {
-      kernelParams = ["amd_pstate=passive"];
+      kernelParams = [ "amd_pstate=passive" ];
     })
 
     # For older kernels.
     # See:
     #  <https://github.com/NixOS/nixos-hardware/blob/c256df331235ce369fdd49c00989fdaa95942934/common/cpu/amd/pstate.nix>
     (mkIf (versionAtLeast kver "6.3") {
-      kernelParams = ["amd_pstate=active"];
+      kernelParams = [ "amd_pstate=active" ];
     })
   ];
 }

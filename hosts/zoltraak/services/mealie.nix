@@ -1,9 +1,11 @@
-{config, ...}: let
+{ config, ... }:
+let
   database = {
     name = "mealie";
     user = "mealie";
   };
-in {
+in
+{
   services.mealie = {
     enable = true;
     settings = {
@@ -25,7 +27,7 @@ in {
     credentialsFile = config.sops.secrets."mealie-env".path;
   };
 
-  sops.secrets."mealie-env" = {};
+  sops.secrets."mealie-env" = { };
 
   networking.firewall.allowedTCPPorts = [
     config.services.mealie.port
@@ -43,7 +45,7 @@ in {
   };
 
   services.postgresql = {
-    ensureDatabases = [database.name];
+    ensureDatabases = [ database.name ];
     ensureUsers = [
       {
         name = database.user;

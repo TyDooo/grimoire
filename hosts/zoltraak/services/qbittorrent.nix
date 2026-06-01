@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) singleton getExe;
 
   port = 8182;
@@ -11,51 +12,50 @@
   torrents_dir = "/mnt/user/downloads/torrents";
 
   # FIXME: hard-linking directories fails
-  anime_import =
-    pkgs.writeShellScriptBin "qbit_anime_import"
-    ''
-      # bash
-      set -euo pipefail
+  anime_import = pkgs.writeShellScriptBin "qbit_anime_import" ''
+    # bash
+    set -euo pipefail
 
-      IMPORT_DIR="${media_dir}/import/anime"
-      LOG_FILE="${media_dir}/import/import.log"
+    IMPORT_DIR="${media_dir}/import/anime"
+    LOG_FILE="${media_dir}/import/import.log"
 
-      mkdir -p "$IMPORT_DIR" "$(dirname "$LOG_FILE")"
+    mkdir -p "$IMPORT_DIR" "$(dirname "$LOG_FILE")"
 
-      CATEGORY="''${1,,}"
-      CONTENT_PATH="$2"
+    CATEGORY="''${1,,}"
+    CONTENT_PATH="$2"
 
-      log() {
-          echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> "$LOG_FILE"
-      }
+    log() {
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> "$LOG_FILE"
+    }
 
-      # Only process torrents in the "anime" category
-      if [[ "$CATEGORY" != "anime" ]]; then
-          exit 0
-      fi
+    # Only process torrents in the "anime" category
+    if [[ "$CATEGORY" != "anime" ]]; then
+        exit 0
+    fi
 
-      if [[ ! -e "$CONTENT_PATH" ]]; then
-          log "Error: Source path not found: $CONTENT_PATH"
-          exit 1
-      fi
+    if [[ ! -e "$CONTENT_PATH" ]]; then
+        log "Error: Source path not found: $CONTENT_PATH"
+        exit 1
+    fi
 
-      NAME=$(basename "$CONTENT_PATH")
-      DEST_PATH="$IMPORT_DIR/$NAME"
+    NAME=$(basename "$CONTENT_PATH")
+    DEST_PATH="$IMPORT_DIR/$NAME"
 
-      # Copy with hard-links (-l), recursive (-R), force (-f)
-      if ! cp -lRf "$CONTENT_PATH" "$IMPORT_DIR/"; then
-        log "Hard-link failed, falling back to regular copy: $NAME"
-        cp -Rf "$CONTENT_PATH" "$IMPORT_DIR/"
-      fi
-      EXIT_CODE=$?
+    # Copy with hard-links (-l), recursive (-R), force (-f)
+    if ! cp -lRf "$CONTENT_PATH" "$IMPORT_DIR/"; then
+      log "Hard-link failed, falling back to regular copy: $NAME"
+      cp -Rf "$CONTENT_PATH" "$IMPORT_DIR/"
+    fi
+    EXIT_CODE=$?
 
-      if [ $EXIT_CODE -eq 0 ]; then
-          log "Imported: $NAME"
-      else
-          log "Error: Failed to link '$NAME'. Exit Code: $EXIT_CODE"
-      fi
-    '';
-in {
+    if [ $EXIT_CODE -eq 0 ]; then
+        log "Imported: $NAME"
+    else
+        log "Error: Failed to link '$NAME'. Exit Code: $EXIT_CODE"
+    fi
+  '';
+in
+{
   services.qbittorrent = {
     enable = true;
     group = "media";
@@ -106,12 +106,12 @@ in {
     };
   };
 
-  users.users.qbittorrent.extraGroups = ["media"];
+  users.users.qbittorrent.extraGroups = [ "media" ];
 
   # Tunnel all traffic through Proton VPN
   systemd.services.qbittorrent = {
-    after = ["proton0.service"];
-    requires = ["proton0.service"];
+    after = [ "proton0.service" ];
+    requires = [ "proton0.service" ];
     vpnConfinement = {
       enable = true;
       vpnNamespace = "proton0";
@@ -144,5 +144,5 @@ in {
     to = port;
   };
 
-  networking.firewall.allowedTCPPorts = [port];
+  networking.firewall.allowedTCPPorts = [ port ];
 }

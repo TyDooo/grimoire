@@ -1,8 +1,10 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   fonts = {
     fontconfig.enable = true;
 
-    packages = with pkgs;
+    packages =
+      with pkgs;
       [
         noto-fonts
         noto-fonts-color-emoji

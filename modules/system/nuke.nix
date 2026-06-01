@@ -2,15 +2,22 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) optionalString mkIf mkOption;
 
   root = config.fileSystems."/";
 
-  toSystemdDevice = device: lib.concatStringsSep "-" (lib.tail (map (lib.replaceString "-" "\\x2d") (lib.splitString "/" device))) + ".device";
+  toSystemdDevice =
+    device:
+    lib.concatStringsSep "-" (
+      lib.tail (map (lib.replaceString "-" "\\x2d") (lib.splitString "/" device))
+    )
+    + ".device";
 
   cfg = config.system.nuke;
-in {
+in
+{
   options.system.nuke = {
     root = mkOption {
       default = false;
@@ -26,12 +33,12 @@ in {
   config = mkIf cfg.root {
     boot.initrd.systemd.services.rollback = lib.mkIf config.boot.initrd.systemd.enable {
       description = "Rollback BTRFS root subvolume to a pristine state";
-      wantedBy = ["initrd.target"];
+      wantedBy = [ "initrd.target" ];
       # make sure it's done after the root device is present
-      after = [(toSystemdDevice root.device)];
-      requires = [(toSystemdDevice root.device)];
+      after = [ (toSystemdDevice root.device) ];
+      requires = [ (toSystemdDevice root.device) ];
       # mount the root fs before clearing
-      before = ["sysroot.mount"];
+      before = [ "sysroot.mount" ];
       unitConfig.DefaultDependencies = "no";
       serviceConfig.Type = "oneshot";
       script = ''

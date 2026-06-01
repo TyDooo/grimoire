@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   networking = {
     firewall.enable = true;
     networkmanager.enable = false;
@@ -42,7 +43,10 @@
   vpnNamespaces.proton0 = {
     enable = true;
     wireguardConfigFile = config.sops.secrets."vpn/proton".path;
-    accessibleFrom = ["127.0.0.1" "10.10.0.0/16"];
+    accessibleFrom = [
+      "127.0.0.1"
+      "10.10.0.0/16"
+    ];
     forward = {
       enable = true;
       qbittorrent = {
@@ -52,5 +56,5 @@
     };
   };
 
-  sops.secrets."vpn/proton" = {};
+  sops.secrets."vpn/proton" = { };
 }

@@ -3,12 +3,14 @@
   self',
   lib,
   ...
-}: let
+}:
+let
   cfg = config.services.mover;
 
   inherit (lib) mkIf mkOption mkEnableOption;
   inherit (lib.types) str int;
-in {
+in
+{
   options.services.mover = {
     enable = mkEnableOption "Enable mover service to offload cache drive";
     cacheMount = mkOption {
@@ -31,19 +33,20 @@ in {
     };
   };
 
-  config = let
-    moverEnv = {
-      CACHE_PATH = cfg.cacheMount;
-      BACKING_PATH = cfg.slowStorage;
-      LOG_PATH = "/tmp/mover.log";
-      AUTO_UPDATE = "false";
-      THRESHOLD_PERCENTAGE = toString cfg.thresholdPercent;
-      TARGET_PERCENTAGE = toString cfg.targetPercent;
-      LOG_LEVEL = "INFO";
-      MAX_WORKERS = "4";
-      MAX_LOG_SIZE_MB = "100";
-    };
-  in
+  config =
+    let
+      moverEnv = {
+        CACHE_PATH = cfg.cacheMount;
+        BACKING_PATH = cfg.slowStorage;
+        LOG_PATH = "/tmp/mover.log";
+        AUTO_UPDATE = "false";
+        THRESHOLD_PERCENTAGE = toString cfg.thresholdPercent;
+        TARGET_PERCENTAGE = toString cfg.targetPercent;
+        LOG_LEVEL = "INFO";
+        MAX_WORKERS = "4";
+        MAX_LOG_SIZE_MB = "100";
+      };
+    in
     mkIf cfg.enable {
       systemd.services.mover = {
         description = "Run the cache mover scripts every 6 hours";
@@ -57,7 +60,7 @@ in {
       };
 
       systemd.timers.mover = {
-        wantedBy = ["timers.target"];
+        wantedBy = [ "timers.target" ];
         timerConfig = {
           description = "Run mover service every 6 hours";
           OnCalendar = "00/6:00";

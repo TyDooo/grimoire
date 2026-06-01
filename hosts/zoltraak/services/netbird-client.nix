@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   services.netbird.useRoutingFeatures = "server";
   services.netbird.clients.default = {
     port = 51820;
@@ -7,7 +8,7 @@
     autoStart = true;
   };
 
-  users.users.tydooo.extraGroups = ["netbird-default"];
+  users.users.tydooo.extraGroups = [ "netbird-default" ];
 
   environment.persistence = {
     "/persist".directories = [

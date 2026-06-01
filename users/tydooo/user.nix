@@ -2,8 +2,9 @@
   config,
   pkgs,
   ...
-}: {
-  nix.settings.trusted-users = ["tydooo"];
+}:
+{
+  nix.settings.trusted-users = [ "tydooo" ];
 
   users = {
     mutableUsers = false;
@@ -28,7 +29,7 @@
       ];
       group = "tydooo";
 
-      openssh.authorizedKeys.keys = [(builtins.readFile ./ssh.pub)];
+      openssh.authorizedKeys.keys = [ (builtins.readFile ./ssh.pub) ];
       hashedPasswordFile = config.sops.secrets."users/tydooo/password".path;
     };
     groups.tydooo.gid = 1000;

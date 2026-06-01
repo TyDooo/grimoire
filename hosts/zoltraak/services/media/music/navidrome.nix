@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   dataPath = "/var/lib/navidrome";
   musicPath = "/mnt/user/media/music";
 
@@ -15,7 +16,8 @@
     url = "https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin/releases/download/v7/audiomuseai.ndp";
     hash = "sha256-+rfCg8PrnfDhB75Q/HNE1lfFG8n0sBBB+y/cOMvaQ/g=";
   };
-in {
+in
+{
   services.navidrome = {
     enable = true;
     settings = {
@@ -50,7 +52,7 @@ in {
   };
 
   # Add the navidrome user to the media group to allow access to the library
-  users.users.navidrome.extraGroups = ["media"];
+  users.users.navidrome.extraGroups = [ "media" ];
 
   environment.persistence."/persist".directories = [
     {

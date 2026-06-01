@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   services.beszel.agent = {
     enable = true;
     smartmon.enable = true;

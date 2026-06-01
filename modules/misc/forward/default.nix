@@ -6,85 +6,102 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (lib) mkOption mkIf mapAttrs' nameValuePair optionalString;
-  inherit
-    (lib.types)
+}:
+let
+  inherit (lib)
+    mkOption
+    mkIf
+    mapAttrs'
+    nameValuePair
+    optionalString
+    ;
+  inherit (lib.types)
     attrsOf
     submodule
     bool
     port
     ;
-in {
+in
+{
   options.vpnNamespaces = mkOption {
-    type = attrsOf (submodule (_: {
-      options.forward = {
-        enable = mkOption {
-          type = bool;
-          default = false;
-          description = "Whether to enable NAT-PMP port forwarding on this VPN namespace.";
-        };
-
-        gateway = mkOption {
-          type = lib.types.str;
-          default = "10.2.0.1";
-          description = "NAT-PMP gateway address.";
-        };
-
-        qbittorrent = {
+    type = attrsOf (
+      submodule (_: {
+        options.forward = {
           enable = mkOption {
             type = bool;
             default = false;
-            description = "Whether to update the forwarded port in qBittorrent.";
+            description = "Whether to enable NAT-PMP port forwarding on this VPN namespace.";
           };
 
-          port = mkOption {
-            type = port;
-            default = config.services.qbittorrent.webuiPort;
-            description = "The port qBittorrent WebUI is reachable on within the VPN namespace.";
+          gateway = mkOption {
+            type = lib.types.str;
+            default = "10.2.0.1";
+            description = "NAT-PMP gateway address.";
+          };
+
+          qbittorrent = {
+            enable = mkOption {
+              type = bool;
+              default = false;
+              description = "Whether to update the forwarded port in qBittorrent.";
+            };
+
+            port = mkOption {
+              type = port;
+              default = config.services.qbittorrent.webuiPort;
+              description = "The port qBittorrent WebUI is reachable on within the VPN namespace.";
+            };
           };
         };
-      };
-    }));
+      })
+    );
   };
 
-  config = let
-    enabledNamespaces = lib.pipe config.vpnNamespaces [
-      (lib.mapAttrs (_: vpnNamespaceConfig: vpnNamespaceConfig.forward))
-      (lib.filterAttrs (_: forwardConfig: forwardConfig.enable))
-    ];
-  in
-    mkIf (config.vpnNamespaces != {}) {
+  config =
+    let
+      enabledNamespaces = lib.pipe config.vpnNamespaces [
+        (lib.mapAttrs (_: vpnNamespaceConfig: vpnNamespaceConfig.forward))
+        (lib.filterAttrs (_: forwardConfig: forwardConfig.enable))
+      ];
+    in
+    mkIf (config.vpnNamespaces != { }) {
       # Based on https://github.com/ImUrX/nixfiles/blob/b07d94b2a7dec5c5d8c93d60b706434db3514554/modules/wg-pnp.nix
 
-      systemd.timers = mapAttrs' (vpnNamespace: _:
+      systemd.timers = mapAttrs' (
+        vpnNamespace: _:
         nameValuePair "${vpnNamespace}-port-forwarding" {
-          wantedBy = ["timers.target"];
-          after = ["${vpnNamespace}.service"];
+          wantedBy = [ "timers.target" ];
+          after = [ "${vpnNamespace}.service" ];
           timerConfig = {
             # Run every 45s to ensure the port doesn't expire
             OnBootSec = "45s";
             OnUnitActiveSec = "45s";
             Unit = "${vpnNamespace}-port-forwarding.service";
           };
-        })
-      enabledNamespaces;
+        }
+      ) enabledNamespaces;
 
-      systemd.services = mapAttrs' (vpnNamespace: forwardConfig:
+      systemd.services = mapAttrs' (
+        vpnNamespace: forwardConfig:
         nameValuePair "${vpnNamespace}-port-forwarding" {
           serviceConfig = {
             Type = "oneshot";
             User = "root";
           };
-          bindsTo = ["${vpnNamespace}.service"];
-          after = ["${vpnNamespace}.service"];
+          bindsTo = [ "${vpnNamespace}.service" ];
+          after = [ "${vpnNamespace}.service" ];
 
           vpnConfinement = {
             enable = true;
             vpnNamespace = "${vpnNamespace}";
           };
 
-          path = with pkgs; [wget libnatpmp ripgrep iptables];
+          path = with pkgs; [
+            wget
+            libnatpmp
+            ripgrep
+            iptables
+          ];
 
           script = ''
             # bash
@@ -135,8 +152,8 @@ in {
               done
             fi
           '';
-        })
-      enabledNamespaces;
+        }
+      ) enabledNamespaces;
 
       # TODO: set qbittorrent port to 0 if the VPN interface goes down
       # TODO: set qbittorrent port after qbittorrent restart

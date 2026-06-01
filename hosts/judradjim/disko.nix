@@ -21,7 +21,7 @@
             size = "100%";
             content = {
               type = "btrfs";
-              extraArgs = ["-f"];
+              extraArgs = [ "-f" ];
               mountOptions = [
                 "compress=zstd"
                 "ssd"
@@ -29,10 +29,18 @@
                 "discard=async"
               ];
               subvolumes = {
-                "@root" = {mountpoint = "/";};
-                "@nix" = {mountpoint = "/nix";};
-                "@log" = {mountpoint = "/var/log";};
-                "@persist" = {mountpoint = "/persist";};
+                "@root" = {
+                  mountpoint = "/";
+                };
+                "@nix" = {
+                  mountpoint = "/nix";
+                };
+                "@log" = {
+                  mountpoint = "/var/log";
+                };
+                "@persist" = {
+                  mountpoint = "/persist";
+                };
               };
             };
           };
@@ -55,7 +63,7 @@
           size = "100%";
           content = {
             type = "btrfs";
-            extraArgs = ["-f"];
+            extraArgs = [ "-f" ];
             mountOptions = [
               "compress=zstd"
               "ssd"
@@ -63,8 +71,12 @@
               "discard=async"
             ];
             subvolumes = {
-              "@home" = {mountpoint = "/home";};
-              "@games" = {mountpoint = "/mnt/games";};
+              "@home" = {
+                mountpoint = "/home";
+              };
+              "@games" = {
+                mountpoint = "/mnt/games";
+              };
             };
           };
         };
@@ -81,7 +93,7 @@
           size = "100%";
           content = {
             type = "btrfs";
-            extraArgs = ["-f"];
+            extraArgs = [ "-f" ];
             mountOptions = [
               "compress=zstd"
               "ssd"
@@ -89,7 +101,9 @@
               "discard=async"
             ];
             subvolumes = {
-              "@backup" = {mountpoint = "/mnt/backup";};
+              "@backup" = {
+                mountpoint = "/mnt/backup";
+              };
             };
           };
         };
@@ -98,7 +112,7 @@
   };
 
   swapDevices = [
-    {device = "/dev/disk/by-partlabel/disk-nvme0-swap";}
+    { device = "/dev/disk/by-partlabel/disk-nvme0-swap"; }
   ];
 
   fileSystems."/persist".neededForBoot = true;

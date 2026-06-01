@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   services.shoko = {
     enable = true;
     openFirewall = true;

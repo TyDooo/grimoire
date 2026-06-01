@@ -2,7 +2,8 @@
   inputs,
   self,
   ...
-}: {
+}:
+{
   flake.deploy = {
     autoRollback = true;
     magicRollback = true;
@@ -10,7 +11,7 @@
       zoltraak = {
         hostname = "10.10.50.50";
 
-        profilesOrder = ["system"];
+        profilesOrder = [ "system" ];
         profiles.system = {
           sshUser = "tydooo";
           user = "root";

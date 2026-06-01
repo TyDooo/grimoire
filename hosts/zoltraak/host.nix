@@ -1,8 +1,5 @@
+{ pkgs, ... }:
 {
-  self',
-  pkgs,
-  ...
-}: {
   imports = [
     ./services
 
@@ -23,6 +20,11 @@
     loader.systemd-boot.enable = true;
   };
 
+  system.nuke = {
+    root = true; # Remove the root directory on each boot
+    home = false; # I'm not confident enough to nuke the home directory yet
+  };
+
   programs.dconf.enable = true; # FIXME: needed?
 
   hardware.graphics = {
@@ -35,16 +37,19 @@
   };
 
   users = {
-    users.tydooo.extraGroups = ["media" "backup"];
+    users.tydooo.extraGroups = [
+      "media"
+      "backup"
+    ];
     groups = {
-      media = {};
-      backup = {};
+      media = { };
+      backup = { };
     };
   };
 
   systemd.services.systemd-tmpfiles-setup = {
-    after = ["mnt-user.mount"];
-    requires = ["mnt-user.mount"];
+    after = [ "mnt-user.mount" ];
+    requires = [ "mnt-user.mount" ];
   };
 
   systemd.tmpfiles.rules = [

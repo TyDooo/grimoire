@@ -1,9 +1,9 @@
 {
   inputs',
-  self',
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ../common/optional/nvidia.nix
     ../common/optional/gnome.nix
@@ -30,7 +30,7 @@
   boot = {
     initrd = {
       systemd.enable = true;
-      supportedFilesystems = ["btrfs"];
+      supportedFilesystems = [ "btrfs" ];
     };
 
     loader = {
@@ -74,8 +74,8 @@
   ];
 
   virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = ["tydooo"];
-  boot.kernelParams = ["kvm.enable_virt_at_load=0"];
+  users.extraGroups.vboxusers.members = [ "tydooo" ];
+  boot.kernelParams = [ "kvm.enable_virt_at_load=0" ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

@@ -4,7 +4,8 @@ let
     "q" = "exit";
     ".." = "cd ..";
   };
-in {
+in
+{
   programs.zsh = {
     inherit shellAliases;
     enable = true;

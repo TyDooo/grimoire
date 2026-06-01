@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   pathTank = "/mnt/disks/tank";
   pathGlass = "/mnt/disks/glass";
   pathCache = "/mnt/disks/cache";
@@ -15,23 +16,25 @@
     fsType = "zfs";
   };
 
-  mkMergerfs = {
-    device,
-    fsname,
-    minfreespace,
-  }: {
-    inherit device;
-    fsType = "fuse.mergerfs";
-    options = [
-      "category.create=epff"
-      "defaults"
-      "allow_other"
-      "moveonenospc=1"
-      "minfreespace=${minfreespace}"
-      "func.getattr=newest"
-      "fsname=${fsname}"
-    ];
-  };
+  mkMergerfs =
+    {
+      device,
+      fsname,
+      minfreespace,
+    }:
+    {
+      inherit device;
+      fsType = "fuse.mergerfs";
+      options = [
+        "category.create=epff"
+        "defaults"
+        "allow_other"
+        "moveonenospc=1"
+        "minfreespace=${minfreespace}"
+        "func.getattr=newest"
+        "fsname=${fsname}"
+      ];
+    };
 
   # ZFS MOUNTS
 
@@ -72,16 +75,21 @@
   ];
 
   zfsFileSystems = lib.listToAttrs (
-    map ({
-      path,
-      device,
-    }:
-      lib.nameValuePair path (mkZfs device))
-    zfsMounts
+    map (
+      {
+        path,
+        device,
+      }:
+      lib.nameValuePair path (mkZfs device)
+    ) zfsMounts
   );
-in {
+in
+{
   boot = {
-    initrd.supportedFilesystems = ["btrfs" "zfs"];
+    initrd.supportedFilesystems = [
+      "btrfs"
+      "zfs"
+    ];
     zfs.forceImportRoot = false;
   };
 
@@ -100,35 +108,33 @@ in {
     mergerfs-tools
   ];
 
-  fileSystems =
-    zfsFileSystems
-    // {
-      "${pathCache}" = {
-        device = "UUID=f1209f58-c197-41f6-b921-0532da5dea59";
-        fsType = "btrfs";
-      };
-
-      "/mnt/disks/frigate" = {
-        device = "UUID=cf17ec35-d534-4467-b597-d94fc04747f0";
-        fsType = "ext4";
-      };
-
-      # Merges the spinning rust disks into a single target. Mainly used
-      # as a target for the mover. Don't use for important data (instead,
-      # write to /mnt/disks/tank directly)!!!!!
-      "/mnt/slow" = mkMergerfs {
-        device = "${pathGlass}:${pathTank}";
-        fsname = "mergerfs_slow";
-        minfreespace = "100G";
-      };
-
-      # Puts the cache drive in front of the slow disks. Don't use for
-      # important data (instead, write to /mnt/disks/tank directly)!!!!!
-      # TODO: change to ${pathCache}:${pathGlass}:${pathTank}?
-      "/mnt/user" = mkMergerfs {
-        device = "${pathCache}:${pathSlow}";
-        fsname = "user";
-        minfreespace = "50G";
-      };
+  fileSystems = zfsFileSystems // {
+    "${pathCache}" = {
+      device = "UUID=f1209f58-c197-41f6-b921-0532da5dea59";
+      fsType = "btrfs";
     };
+
+    "/mnt/disks/frigate" = {
+      device = "UUID=cf17ec35-d534-4467-b597-d94fc04747f0";
+      fsType = "ext4";
+    };
+
+    # Merges the spinning rust disks into a single target. Mainly used
+    # as a target for the mover. Don't use for important data (instead,
+    # write to /mnt/disks/tank directly)!!!!!
+    "/mnt/slow" = mkMergerfs {
+      device = "${pathGlass}:${pathTank}";
+      fsname = "mergerfs_slow";
+      minfreespace = "100G";
+    };
+
+    # Puts the cache drive in front of the slow disks. Don't use for
+    # important data (instead, write to /mnt/disks/tank directly)!!!!!
+    # TODO: change to ${pathCache}:${pathGlass}:${pathTank}?
+    "/mnt/user" = mkMergerfs {
+      device = "${pathCache}:${pathSlow}";
+      fsname = "user";
+      minfreespace = "50G";
+    };
+  };
 }

@@ -2,8 +2,9 @@
   config,
   pkgs,
   ...
-}: {
-  home.packages = [pkgs.exiftool];
+}:
+{
+  home.packages = [ pkgs.exiftool ];
 
   programs.yazi = {
     enable = true;

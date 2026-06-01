@@ -2,14 +2,19 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) singleton getExe;
-in {
+in
+{
   systemd.services.prowlarr = {
     description = "Prowlarr";
-    after = ["network.target" "proton0.service"];
-    requires = ["proton0.service"];
-    wantedBy = ["multi-user.target"];
+    after = [
+      "network.target"
+      "proton0.service"
+    ];
+    requires = [ "proton0.service" ];
+    wantedBy = [ "multi-user.target" ];
     environment.HOME = "/var/empty";
 
     vpnConfinement = {

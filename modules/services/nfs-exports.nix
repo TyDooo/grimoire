@@ -2,7 +2,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.services.nfs-exports;
 
   inherit (lib) types;
@@ -21,17 +22,16 @@
     };
   };
 
-  clientExportStr = clients: opts:
-    lib.concatMapStringsSep " " (client: "${client}(${opts})") clients;
+  clientExportStr = clients: opts: lib.concatMapStringsSep " " (client: "${client}(${opts})") clients;
 
   exportLines = lib.concatStringsSep "\n" (
-    ["${cfg.basePath}  ${clientExportStr cfg.clients "rw,fsid=0"}"] # Create the root share
+    [ "${cfg.basePath}  ${clientExportStr cfg.clients "rw,fsid=0"}" ] # Create the root share
     ++ lib.mapAttrsToList (
       name: share: "${cfg.basePath}/${name}  ${clientExportStr cfg.clients share.options}"
-    )
-    cfg.shares
+    ) cfg.shares
   );
-in {
+in
+{
   options.services.nfs-exports = {
     enable = lib.mkEnableOption "NFS server with auto-generated bind mounts and exports";
 
@@ -43,13 +43,16 @@ in {
 
     clients = lib.mkOption {
       type = types.listOf types.str;
-      example = ["192.168.1.100" "192.168.1.0/24"];
+      example = [
+        "192.168.1.100"
+        "192.168.1.0/24"
+      ];
       description = "Client IPs or subnets allowed to mount the exports.";
     };
 
     shares = lib.mkOption {
       type = types.attrsOf shareType;
-      default = {};
+      default = { };
       example = {
         music.source = "/mnt/user/music";
         data.source = "/mnt/data";
@@ -65,16 +68,14 @@ in {
     ];
 
     # Create a bind mount under the base path for each NFS share
-    fileSystems =
-      lib.mapAttrs' (
-        name: share:
-          lib.nameValuePair "${cfg.basePath}/${name}" {
-            device = share.source;
-            fsType = "none";
-            options = ["bind"];
-          }
-      )
-      cfg.shares;
+    fileSystems = lib.mapAttrs' (
+      name: share:
+      lib.nameValuePair "${cfg.basePath}/${name}" {
+        device = share.source;
+        fsType = "none";
+        options = [ "bind" ];
+      }
+    ) cfg.shares;
 
     services.nfs = {
       server = {
@@ -93,7 +94,7 @@ in {
 
     environment.persistence = {
       "/persist".directories = [
-        {directory = "/var/lib/nfs";}
+        { directory = "/var/lib/nfs"; }
         {
           directory = cfg.basePath;
           user = "nobody";
@@ -103,7 +104,13 @@ in {
       ];
     };
 
-    networking.firewall.allowedTCPPorts = [111 2049];
-    networking.firewall.allowedUDPPorts = [111 2049];
+    networking.firewall.allowedTCPPorts = [
+      111
+      2049
+    ];
+    networking.firewall.allowedUDPPorts = [
+      111
+      2049
+    ];
   };
 }

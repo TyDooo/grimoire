@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   services.bazarr = {
     enable = true;
     group = "media";

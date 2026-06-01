@@ -2,10 +2,12 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) singleton;
   port = 8080;
-in {
+in
+{
   services.sabnzbd = {
     enable = true;
     group = "media";
@@ -64,12 +66,12 @@ in {
     # };
   };
 
-  users.users.sabnzbd.extraGroups = ["media"];
+  users.users.sabnzbd.extraGroups = [ "media" ];
 
   # Tunnel all traffic through Proton VPN
   systemd.services.sabnzbd = {
-    after = ["proton0.service"];
-    requires = ["proton0.service"];
+    after = [ "proton0.service" ];
+    requires = [ "proton0.service" ];
     vpnConfinement = {
       enable = true;
       vpnNamespace = "proton0";
@@ -111,5 +113,5 @@ in {
     mode = "0600";
   };
 
-  networking.firewall.allowedTCPPorts = [port];
+  networking.firewall.allowedTCPPorts = [ port ];
 }

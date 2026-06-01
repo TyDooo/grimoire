@@ -1,11 +1,14 @@
+let
+  tank = "/mnt/disks/tank";
+in
 {
   services.nfs-exports = {
     enable = true;
-    clients = ["10.10.10.100"];
+    clients = [ "10.10.10.100" ];
 
     shares = {
-      music.source = "/mnt/disks/tank/media/music";
-      sauce.source = "/mnt/disks/tank/sauce";
+      music.source = "${tank}/media/music";
+      sauce.source = "${tank}/sauce";
     };
   };
 }

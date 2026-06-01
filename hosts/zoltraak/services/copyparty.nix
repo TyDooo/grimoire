@@ -3,14 +3,16 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) singleton;
-in {
+in
+{
   imports = [
     inputs.copyparty.nixosModules.default
   ];
 
-  nixpkgs.overlays = [inputs.copyparty.overlays.default];
+  nixpkgs.overlays = [ inputs.copyparty.overlays.default ];
 
   services.copyparty = {
     enable = true;
@@ -36,7 +38,7 @@ in {
         path = "/mnt/disks/tank/files/walls";
         access = {
           r = "*";
-          A = ["tydooo"];
+          A = [ "tydooo" ];
         };
         flags = {
           scan = 30;
@@ -47,7 +49,7 @@ in {
         path = "/mnt/user/media/music";
         access = {
           r = "*";
-          A = ["tydooo"];
+          A = [ "tydooo" ];
         };
         flags = {
           scan = 30;
@@ -57,7 +59,7 @@ in {
       "/media/sauce" = {
         path = "/mnt/user/sauce";
         access = {
-          A = ["tydooo"];
+          A = [ "tydooo" ];
         };
         flags = {
           scan = 30;
@@ -68,7 +70,7 @@ in {
         path = "/mnt/disks/tank/files/reaction";
         access = {
           r = "*";
-          A = ["tydooo"];
+          A = [ "tydooo" ];
         };
         flags = {
           scan = 30;
@@ -78,7 +80,7 @@ in {
     };
   };
 
-  users.users.copyparty.extraGroups = ["media"];
+  users.users.copyparty.extraGroups = [ "media" ];
 
   systemd.tmpfiles.rules = [
     "d /mnt/disks/tank/files 0770 copyparty copyparty - -"

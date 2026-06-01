@@ -1,10 +1,11 @@
-{config, ...}: {
+{ config, ... }:
+{
   services.plex = {
     enable = true;
     openFirewall = true;
   };
 
-  users.users.plex.extraGroups = ["media"];
+  users.users.plex.extraGroups = [ "media" ];
 
   environment.persistence = {
     "/persist".directories = [

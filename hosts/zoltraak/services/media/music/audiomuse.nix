@@ -2,7 +2,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   version = "2.1.1";
 
   redisPort = 6380;
@@ -15,8 +16,11 @@
   containerConf = {
     image = "ghcr.io/neptunehub/audiomuse-ai:${version}";
     autoStart = true;
-    extraOptions = ["--network=host" "--tmpfs=/app/temp_audio:size=1G,mode=1777"];
-    environmentFiles = [config.sops.secrets."audiomuse-ai/env".path];
+    extraOptions = [
+      "--network=host"
+      "--tmpfs=/app/temp_audio:size=1G,mode=1777"
+    ];
+    environmentFiles = [ config.sops.secrets."audiomuse-ai/env".path ];
   };
 
   containerEnv = {
@@ -44,7 +48,8 @@
     CLUSTERING_RUNS = "5000";
     LYRICS_ENABLED = "true";
   };
-in {
+in
+{
   services.redis.servers.audiomuse = {
     enable = true;
     port = redisPort;
@@ -52,7 +57,7 @@ in {
   };
 
   services.postgresql = {
-    ensureDatabases = [database.name];
+    ensureDatabases = [ database.name ];
     ensureUsers = [
       {
         name = database.user;
@@ -66,25 +71,17 @@ in {
   };
 
   virtualisation.oci-containers.containers = {
-    audiomuse-ai =
-      containerConf
-      // {
-        environment =
-          containerEnv
-          // {
-            SERVICE_TYPE = "flask";
-          };
+    audiomuse-ai = containerConf // {
+      environment = containerEnv // {
+        SERVICE_TYPE = "flask";
       };
+    };
 
-    audiomuse-ai-worker =
-      containerConf
-      // {
-        environment =
-          containerEnv
-          // {
-            SERVICE_TYPE = "worker";
-          };
+    audiomuse-ai-worker = containerConf // {
+      environment = containerEnv // {
+        SERVICE_TYPE = "worker";
       };
+    };
   };
 
   systemd.services = {
@@ -98,7 +95,7 @@ in {
     };
   };
 
-  sops.secrets."audiomuse-ai/env" = {};
+  sops.secrets."audiomuse-ai/env" = { };
 
-  networking.firewall.allowedTCPPorts = [8000];
+  networking.firewall.allowedTCPPorts = [ 8000 ];
 }

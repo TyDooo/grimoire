@@ -1,11 +1,12 @@
-{pkgs, ...}: {
-  imports = [./languages.nix];
+{ pkgs, ... }:
+{
+  imports = [ ./languages.nix ];
 
   programs.helix = {
     enable = true;
     extraPackages = with pkgs; [
       nil
-      alejandra
+      nixfmt
       gopls
       golangci-lint-langserver
       delve

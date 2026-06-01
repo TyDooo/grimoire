@@ -1,9 +1,10 @@
-{config, ...}: {
+{ config, ... }:
+{
   # Until https://github.com/NixOS/nixpkgs/pull/450093 is merged
   virtualisation.oci-containers.containers.seerr = {
     image = "ghcr.io/seerr-team/seerr:latest";
     autoStart = true;
-    ports = ["5055:5055"];
+    ports = [ "5055:5055" ];
     volumes = [
       "/var/lib/seerr:/app/config"
     ];

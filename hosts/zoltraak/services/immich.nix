@@ -1,9 +1,11 @@
-{config, ...}: let
+{ config, ... }:
+let
   cfg = config.services.immich;
 
   # Write directly to tank/immich ZFS dataset
   mediaLocation = "/mnt/disks/tank/immich";
-in {
+in
+{
   services.immich = {
     enable = true;
     host = "0.0.0.0";
@@ -16,7 +18,7 @@ in {
       enable = true;
       createDB = true;
     };
-    accelerationDevices = ["/dev/dri/renderD128"];
+    accelerationDevices = [ "/dev/dri/renderD128" ];
   };
 
   systemd.tmpfiles.rules = [

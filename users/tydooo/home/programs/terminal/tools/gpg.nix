@@ -1,8 +1,9 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    sshKeys = ["347B9789CB66D37EAF886B2C4A9E314D84972BA4"];
+    sshKeys = [ "347B9789CB66D37EAF886B2C4A9E314D84972BA4" ];
     enableExtraSocket = true;
     pinentry.package = pkgs.pinentry-gnome3;
     # if config.gtk.enable
@@ -36,7 +37,7 @@
         ExecStop = "${pkgs.coreutils}/bin/rm $HOME/.gnupg-sockets";
         RemainAfterExit = true;
       };
-      Install.WantedBy = ["default.target"];
+      Install.WantedBy = [ "default.target" ];
     };
   };
 }

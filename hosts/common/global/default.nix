@@ -3,7 +3,8 @@
   inputs,
   outputs,
   ...
-}: {
+}:
+{
   imports = [
     ./impermanence.nix
     ./openssh.nix
@@ -30,7 +31,7 @@
 
   home-manager = {
     useGlobalPkgs = false;
-    extraSpecialArgs = {inherit inputs outputs inputs';};
+    extraSpecialArgs = { inherit inputs outputs inputs'; };
     backupFileExtension = "hm.old";
   };
 }

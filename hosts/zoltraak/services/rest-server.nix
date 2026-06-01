@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   services.restic.server = {
     enable = true;
     listenAddress = "8745";
@@ -7,7 +8,7 @@
     htpasswd-file = config.sops.secrets."restic/server/passwd".path;
   };
 
-  users.users.restic.extraGroups = ["backup"];
+  users.users.restic.extraGroups = [ "backup" ];
 
   systemd.tmpfiles.rules = [
     "d /mnt/disks/tank/backup/restic 2775 restic backup - -"
@@ -19,5 +20,5 @@
     mode = "0600";
   };
 
-  networking.firewall.allowedTCPPorts = [8745];
+  networking.firewall.allowedTCPPorts = [ 8745 ];
 }
