@@ -57,6 +57,18 @@
       path = "${pathTank}/sauce";
       device = "tank/sauce";
     }
+    {
+      path = "${pathTank}/media";
+      device = "tank/media";
+    }
+    {
+      path = "${pathTank}/media/music";
+      device = "tank/media/music";
+    }
+    {
+      path = "${pathTank}/paper";
+      device = "tank/paper";
+    }
   ];
 
   zfsFileSystems = lib.listToAttrs (

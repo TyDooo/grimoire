@@ -40,10 +40,13 @@ in {
   ];
 
   systemd.services.navidrome = {
-    serviceConfig.ExecStartPre = [
-      "${pkgs.coreutils}/bin/cp -f ${apple-music-plugin} ${dataPath}/plugins/apple-music.ndp"
-      "${pkgs.coreutils}/bin/cp -f ${audiomuseai-plugin} ${dataPath}/plugins/audiomuseai.ndp"
-    ];
+    serviceConfig = {
+      RequiresMountsFor = "${musicPath}";
+      ExecStartPre = [
+        "${pkgs.coreutils}/bin/cp -f ${apple-music-plugin} ${dataPath}/plugins/apple-music.ndp"
+        "${pkgs.coreutils}/bin/cp -f ${audiomuseai-plugin} ${dataPath}/plugins/audiomuseai.ndp"
+      ];
+    };
   };
 
   # Add the navidrome user to the media group to allow access to the library

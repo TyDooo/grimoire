@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  version = "1.1.0";
+  version = "2.1.1";
 
   redisPort = 6380;
   database = {
@@ -42,7 +42,7 @@
     AI_MODEL_PROVIDER = "NONE";
     CLAP_ENABLED = "true";
     CLUSTERING_RUNS = "5000";
-    LYRICS_ENABLED = "false";
+    LYRICS_ENABLED = "true";
   };
 in {
   services.redis.servers.audiomuse = {
@@ -85,6 +85,17 @@ in {
             SERVICE_TYPE = "worker";
           };
       };
+  };
+
+  systemd.services = {
+    podman-audiomuse-ai.serviceConfig = {
+      requires = "navidrome.service";
+      after = "navidrome.service";
+    };
+    podman-audiomuse-ai-worker.serviceConfig = {
+      requires = "navidrome.service";
+      after = "navidrome.service";
+    };
   };
 
   sops.secrets."audiomuse-ai/env" = {};
