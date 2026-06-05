@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./fail2ban.nix
     ./impermanence.nix
     ./openssh.nix
     ./podman.nix
