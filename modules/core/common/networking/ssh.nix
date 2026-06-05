@@ -7,7 +7,7 @@
 let
   inherit (config.networking) hostName;
   hosts = outputs.nixosConfigurations;
-  pubKey = host: ../../../hosts/${host}/ssh_host_ed25519_key.pub;
+  pubKey = host: ../../../../hosts/${host}/ssh_host_ed25519_key.pub;
 
   # Sops needs access to the keys before the persist dirs are even mounted; so
   # just persisting the keys won't work, we must point at /persist

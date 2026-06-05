@@ -1,11 +1,20 @@
 { config, ... }:
+let
+  interfaceName = "nb0";
+  netbirdPort = 51820;
+in
 {
-  services.netbird.useRoutingFeatures = "server";
-  services.netbird.clients.default = {
-    port = 51820;
-    interface = "wt0";
-    ui.enable = false;
-    autoStart = true;
+  services.netbird = {
+    # TODO: configure based on role
+    useRoutingFeatures = "server";
+    clients.default = {
+      port = netbirdPort;
+      interface = interfaceName;
+      # TODO: configure based on role
+      ui.enable = false;
+      autoStart = true;
+      openFirewall = true;
+    };
   };
 
   users.users.tydooo.extraGroups = [ "netbird-default" ];

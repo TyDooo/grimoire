@@ -1,12 +1,5 @@
 { config, ... }:
 {
-  networking = {
-    firewall.enable = true;
-    networkmanager.enable = false;
-    hostId = "1f4d827b"; # IDK? For ZFS apparently...
-    useDHCP = false;
-  };
-
   systemd.network.enable = true;
   systemd.network = {
     netdevs = {
