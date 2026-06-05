@@ -1,10 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./services
-
-    ./filesystems.nix
-    ./networking.nix
+    ./modules
   ];
 
   environment.systemPackages = with pkgs; [
