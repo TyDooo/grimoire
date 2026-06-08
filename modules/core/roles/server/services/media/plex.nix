@@ -1,19 +1,30 @@
-{ config, ... }:
+{ config, lib, ... }:
+let
+  inherit (lib) mkIf mkEnableOption;
+
+  cfg = config.modules.services.media.plex;
+in
 {
-  services.plex = {
-    enable = true;
-    openFirewall = true;
+  options.modules.services.media.plex = {
+    enable = mkEnableOption "plex";
   };
 
-  users.users.plex.extraGroups = [ "media" ];
+  config = mkIf cfg.enable {
+    services.plex = {
+      enable = true;
+      openFirewall = true;
+    };
 
-  environment.persistence = {
-    "/persist".directories = [
-      {
-        directory = config.services.plex.dataDir;
-        inherit (config.services.plex) user group;
-        mode = "0700";
-      }
-    ];
+    users.users.plex.extraGroups = [ "media" ];
+
+    environment.persistence = {
+      "/persist".directories = [
+        {
+          directory = config.services.plex.dataDir;
+          inherit (config.services.plex) user group;
+          mode = "0700";
+        }
+      ];
+    };
   };
 }

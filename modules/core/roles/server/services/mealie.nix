@@ -1,56 +1,66 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
+  inherit (lib) mkIf mkEnableOption;
+
+  cfg = config.modules.services.mealie;
+
   database = {
     name = "mealie";
     user = "mealie";
   };
 in
 {
-  services.mealie = {
-    enable = true;
-    settings = {
-      DB_ENGINE = "postgres";
-      POSTGRES_URL_OVERRIDE = "postgresql://${database.user}:@/${database.name}?host=/run/postgresql";
+  options.modules.services.mealie = {
+    enable = mkEnableOption "mealie";
+  };
 
-      ALLOW_SIGNUP = "false";
+  config = mkIf cfg.enable {
+    services.mealie = {
+      enable = true;
+      settings = {
+        DB_ENGINE = "postgres";
+        POSTGRES_URL_OVERRIDE = "postgresql://${database.user}:@/${database.name}?host=/run/postgresql";
 
-      TZ = "Europe/Amsterdam";
+        ALLOW_SIGNUP = "false";
 
-      SECURITY_MAX_LOGIN_ATTEMPTS = "3";
-      SECURITY_USER_LOCKOUT_TIME = "24";
+        TZ = "Europe/Amsterdam";
 
-      OIDC_AUTH_ENABLED = "false";
-      OIDC_SIGNUP_ENABLED = "true";
-      OIDC_PROVIDER_NAME = "Pocket ID";
+        SECURITY_MAX_LOGIN_ATTEMPTS = "3";
+        SECURITY_USER_LOCKOUT_TIME = "24";
+
+        OIDC_AUTH_ENABLED = "false";
+        OIDC_SIGNUP_ENABLED = "true";
+        OIDC_PROVIDER_NAME = "Pocket ID";
+      };
+
+      credentialsFile = config.sops.secrets."mealie-env".path;
     };
 
-    credentialsFile = config.sops.secrets."mealie-env".path;
-  };
+    sops.secrets."mealie-env" = { };
 
-  sops.secrets."mealie-env" = { };
-
-  networking.firewall.allowedTCPPorts = [
-    config.services.mealie.port
-  ];
-
-  environment.persistence = {
-    "/persist".directories = [
-      {
-        directory = "/var/lib/private/mealie";
-        user = "nobody";
-        group = "nogroup";
-        mode = "0750";
-      }
+    networking.firewall.allowedTCPPorts = [
+      config.services.mealie.port
     ];
-  };
 
-  services.postgresql = {
-    ensureDatabases = [ database.name ];
-    ensureUsers = [
-      {
-        name = database.user;
-        ensureDBOwnership = true;
-      }
-    ];
+    environment.persistence = {
+      "/persist".directories = [
+        {
+          directory = "/var/lib/private/mealie";
+          user = "nobody";
+          group = "nogroup";
+          mode = "0750";
+        }
+      ];
+    };
+
+    services.postgresql = {
+      ensureDatabases = [ database.name ];
+      ensureUsers = [
+        {
+          name = database.user;
+          ensureDBOwnership = true;
+        }
+      ];
+    };
   };
 }

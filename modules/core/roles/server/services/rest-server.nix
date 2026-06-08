@@ -1,24 +1,35 @@
-{ config, ... }:
+{ config, lib, ... }:
+let
+  inherit (lib) mkIf mkEnableOption;
+
+  cfg = config.modules.services.rest-server;
+in
 {
-  services.restic.server = {
-    enable = true;
-    listenAddress = "8745";
-    privateRepos = true;
-    dataDir = "/mnt/disks/tank/backup/restic";
-    htpasswd-file = config.sops.secrets."restic/server/passwd".path;
+  options.modules.services.rest-server = {
+    enable = mkEnableOption "rest-server";
   };
 
-  users.users.restic.extraGroups = [ "backup" ];
+  config = mkIf cfg.enable {
+    services.restic.server = {
+      enable = true;
+      listenAddress = "8745";
+      privateRepos = true;
+      dataDir = "/mnt/disks/tank/backup/restic";
+      htpasswd-file = config.sops.secrets."restic/server/passwd".path;
+    };
 
-  systemd.tmpfiles.rules = [
-    "d /mnt/disks/tank/backup/restic 2775 restic backup - -"
-  ];
+    users.users.restic.extraGroups = [ "backup" ];
 
-  sops.secrets."restic/server/passwd" = {
-    owner = "restic";
-    group = "restic";
-    mode = "0600";
+    systemd.tmpfiles.rules = [
+      "d /mnt/disks/tank/backup/restic 2775 restic backup - -"
+    ];
+
+    sops.secrets."restic/server/passwd" = {
+      owner = "restic";
+      group = "restic";
+      mode = "0600";
+    };
+
+    networking.firewall.allowedTCPPorts = [ 8745 ];
   };
-
-  networking.firewall.allowedTCPPorts = [ 8745 ];
 }

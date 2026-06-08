@@ -1,12 +1,14 @@
 {
   imports = [
-    ./arr
-    ./music
+    ./servarr
 
+    ./audiomuse.nix
     ./jellyfin.nix
+    ./navidrome.nix
     ./plex.nix
     ./seerr.nix
     ./shoko.nix
+    ./stash.nix
   ];
 
   systemd.tmpfiles.rules = [
