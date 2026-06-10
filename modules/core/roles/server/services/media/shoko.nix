@@ -19,6 +19,7 @@ in
       users.shoko = {
         group = "media";
         isSystemUser = true;
+        extraGroups = [ "stash" ];
       };
     };
 

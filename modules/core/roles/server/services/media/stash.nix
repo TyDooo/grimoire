@@ -15,9 +15,40 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.stash = {
+    nixpkgs.overlays = [
+      (final: prev: {
+        stashapp-tools = prev.python3Packages.buildPythonPackage rec {
+          pname = "stashapp-tools";
+          version = "0.2.59";
+          format = "setuptools";
+
+          src = prev.fetchPypi {
+            inherit pname version;
+            hash = "sha256-Y52YueWHp8C2FsnJ01YMBkz4O2z4d7RBeCswWGr8SjY=";
+          };
+
+          propagatedBuildInputs = with prev.python3Packages; [
+            requests
+          ];
+
+          pythonImportsCheck = [ "stashapi" ];
+        };
+
+        # Python environment with required packages for Stash plugins
+        stashPython = prev.python3.withPackages (
+          ps: with ps; [
+            final.stashapp-tools
+            requests
+          ]
+        );
+      })
+    ];
+
+    # NOTE: this is a custom stash module (modules/services/stashapp.nix)
+    services.stashapp = {
       enable = true;
       openFirewall = true;
+      pythonPackage = pkgs.stashPython;
       username = "TyDooo";
       passwordFile = config.sops.secrets."stash/password".path;
       sessionStoreKeyFile = config.sops.secrets."stash/session_store_key".path;
@@ -37,13 +68,13 @@ in
             path = "/mnt/disks/tank/sauce/hentai";
             excludeimage = true;
           }
+          {
+            path = "/mnt/disks/tank/sauce/pictures";
+            excludevideo = true;
+          }
         ];
       };
     };
-
-    environment.systemPackages = with pkgs; [
-      google-chrome
-    ];
 
     sops.secrets = {
       "stash/password" = {
