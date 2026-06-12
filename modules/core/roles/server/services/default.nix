@@ -9,5 +9,6 @@
     ./immich.nix
     ./mealie.nix
     ./rest-server.nix
+    ./technitium.nix
   ];
 }

@@ -20,6 +20,19 @@
           interactiveSudo = true;
         };
       };
+
+      mistilziela = {
+        hostname = "10.10.1.6";
+
+        profilesOrder = [ "system" ];
+        profiles.system = {
+          sshUser = "tydooo";
+          user = "root";
+          remoteBuild = false;
+          path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.mistilziela;
+          interactiveSudo = true;
+        };
+      };
     };
   };
 }

@@ -15,6 +15,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+
     nixcord.url = "github:kaylorben/nixcord";
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";

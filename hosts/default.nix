@@ -100,5 +100,16 @@ in
         extra = [ inputs.vpn-confinement.nixosModules.default ];
       };
     };
+
+    mistilziela = mkNixosSystem {
+      hostname = "mistilziela";
+      system = "aarch64-linux";
+      modules = mkModulesFor "mistilziela" {
+        roles = [
+          headless
+          server
+        ];
+      };
+    };
   };
 }
