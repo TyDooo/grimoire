@@ -28,9 +28,6 @@
   programs.home-manager.enable = true;
   news.display = "silent";
 
-  # Silence GTK theme warning during build
-  gtk.gtk4.theme = null;
-
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
@@ -50,6 +47,7 @@
       };
 
       cursor = {
+        # NOTE: this causes inkscape to be compiled from source...
         package = pkgs.volantes-cursors;
         name = "volantes_cursors";
         size = 24;
