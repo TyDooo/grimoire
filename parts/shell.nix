@@ -31,7 +31,6 @@
         packages = [
           config.treefmt.build.wrapper
 
-          inputs'.deploy-rs.packages.default
           inputs'.clan-core.packages.clan-cli
 
           pkgs.nixfmt
