@@ -1,15 +1,11 @@
 {
-  lib,
   inputs,
   withSystem,
   ...
 }:
 let
   inherit (self) outputs;
-  inherit (inputs) self nixpkgs;
-  inherit (lib.lists) singleton concatLists;
-
-  vars = import ../vars/private.nix;
+  inherit (inputs) self;
 
   modulePath = ../modules;
 
@@ -26,79 +22,70 @@ let
     inputs.disko.nixosModules.default
     inputs.stylix.nixosModules.stylix
   ];
+in
+{
+  flake = {
+    # nixosConfigurations = {
+    #   # judradjim = mkHost {
+    #   #   hostname = "judradjim";
+    #   #   system = "x86_64-linux";
+    #   # };
 
-  mkNixosSystem =
-    { system, ... }@args:
-    withSystem system (
+    #   zoltraak = mkNixosSystem {
+    #     hostname = "zoltraak";
+    #     system = "x86_64-linux";
+    #     modules = mkModulesFor "zoltraak" {
+    #       roles = [
+    #         headless
+    #         server
+    #       ];
+    #       extra = [ inputs.vpn-confinement.nixosModules.default ];
+    #     };
+    #   };
+    # };
+
+    clan = withSystem "x86_64-linux" (
       {
         inputs',
         self',
         ...
       }:
-      lib.nixosSystem {
+      {
+        inherit self;
+
         specialArgs = {
           inherit outputs;
           inherit inputs self;
           inherit inputs' self';
-          inherit vars;
         };
-        modules = concatLists [
-          (singleton {
-            networking.hostName = args.hostname;
-            nixpkgs = {
-              hostPlatform = lib.mkDefault args.system;
-              flake.source = nixpkgs.outPath;
-            };
 
-          })
+        meta.name = "grimoire";
+        meta.domain = "spell";
 
-          (args.modules or [ ])
-        ];
+        machines = {
+          zoltraak = {
+            nixpkgs.hostPlatform = "x86_64-linux";
+            imports = [
+              common
+
+              ../users/tydooo/user.nix
+              ../users/root/user.nix
+
+              ../modules
+
+              ./zoltraak/host.nix
+              ./zoltraak/disko.nix
+              ./zoltraak/hardware.nix
+
+              headless
+              server
+
+              inputs.vpn-confinement.nixosModules.default
+            ]
+            ++ shared;
+          };
+        };
       }
-    )
-
-  ;
-
-  mkModulesFor =
-    hostname:
-    {
-      roles ? [ ],
-      extra ? [ ],
-    }:
-
-    [
-      common
-
-      ../users/tydooo/user.nix
-      ../users/root/user.nix
-
-      ../modules
-
-      ./${hostname}/host.nix
-      ./${hostname}/disko.nix
-      ./${hostname}/hardware.nix
-    ]
-    ++ roles
-    ++ extra
-    ++ shared;
-in
-{
-  flake.nixosConfigurations = {
-    # judradjim = mkHost {
-    #   hostname = "judradjim";
-    #   system = "x86_64-linux";
-    # };
-
-    zoltraak = mkNixosSystem {
-      hostname = "zoltraak";
-      system = "x86_64-linux";
-      modules = mkModulesFor "zoltraak" {
-        roles = [
-          headless
-          server
-        ];
-        extra = [ inputs.vpn-confinement.nixosModules.default ];
-      };
-    };
+    );
   };
 }

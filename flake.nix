@@ -7,6 +7,8 @@
       systems = [ "x86_64-linux" ];
 
       imports = [
+        inputs.clan-core.flakeModules.default
+
         ./parts
         ./hosts
       ];
@@ -14,6 +16,11 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    clan-core = {
+      url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixcord.url = "github:kaylorben/nixcord";
 

@@ -12,6 +12,8 @@
     rsync
   ];
 
+  clan.core.networking.targetHost = "zoltraak";
+
   boot = {
     initrd.systemd.enable = true;
     loader.systemd-boot.enable = true;
