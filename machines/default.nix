@@ -37,6 +37,10 @@ in
         meta.name = "grimoire";
         meta.domain = "spell";
 
+        secrets.age.plugins = [
+          "age-plugin-yubikey"
+        ];
+
         inventory = {
           machines = {
             zoltraak.tags = [
