@@ -1,6 +1,6 @@
 {
   config,
-  self',
+  self,
   pkgs,
   lib,
   ...
@@ -22,7 +22,7 @@ in
     services.navidrome = {
       enable = true;
       # TODO: Change back to nixpkgs version once v0.62.0 is packaged
-      package = self'.packages.navidrome;
+      package = self.packages.x86_64-linux.navidrome;
 
       settings = {
         Port = 4533;

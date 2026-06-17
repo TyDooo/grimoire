@@ -1,6 +1,6 @@
 {
   config,
-  self',
+  self,
   lib,
   ...
 }:
@@ -53,7 +53,7 @@ in
         serviceConfig = {
           Type = "oneshot";
           User = "root"; # Run as root to preserve permissions
-          ExecStart = "${self'.packages.mergerfs-cache-mover}/bin/mergerfs-cache-mover --console-log";
+          ExecStart = "${self.packages.x86_64-linux.mergerfs-cache-mover}/bin/mergerfs-cache-mover --console-log";
           RequiresMountsFor = "${cfg.cacheMount} ${cfg.slowStorage}";
         };
         environment = moverEnv;
