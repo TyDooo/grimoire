@@ -10,7 +10,7 @@
         inputs.clan-core.flakeModules.default
 
         ./parts
-        ./hosts
+        ./machines
       ];
     };
 

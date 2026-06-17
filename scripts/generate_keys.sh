@@ -16,9 +16,9 @@ ssh-keygen -q -t rsa -b 4096 -f "./tmp/persist/etc/ssh/ssh_host_rsa_key" -N "" -
 chmod 600 ./tmp/persist/etc/ssh/*
 
 # Create target directory for public keys
-install -d -m755 "./hosts/$HOSTNAME_VALUE"
+install -d -m755 "./machines/$HOSTNAME_VALUE"
 
-# Copy public keys to ./hosts/<HOSTNAME>
-cp ./tmp/persist/etc/ssh/*.pub "./hosts/$HOSTNAME_VALUE/"
+# Copy public keys to ./machines/<HOSTNAME>
+cp ./tmp/persist/etc/ssh/*.pub "./machines/$HOSTNAME_VALUE/"
 
-echo "SSH keys generated and copied to ./hosts/$HOSTNAME_VALUE/"
+echo "SSH keys generated and copied to ./machines/$HOSTNAME_VALUE/"

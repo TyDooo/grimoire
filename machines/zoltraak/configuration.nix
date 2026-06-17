@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
+    inputs.vpn-confinement.nixosModules.default
+
     ./modules
   ];
 

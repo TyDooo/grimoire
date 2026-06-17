@@ -13,6 +13,6 @@ in
 
   sops = {
     age.sshKeyPaths = map getKeyPath keys;
-    defaultSopsFile = ../../../hosts/${config.networking.hostName}/secrets.yaml;
+    defaultSopsFile = ../../../machines/${config.networking.hostName}/secrets.yaml;
   };
 }
