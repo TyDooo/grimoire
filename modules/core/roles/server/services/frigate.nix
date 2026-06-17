@@ -44,6 +44,10 @@ in
       ];
     };
 
+    systemd.tmpfiles.rules = [
+      "d /var/lib/frigate 0750 1000 1000 - -"
+    ];
+
     environment.persistence = {
       "/persist".directories = [
         {
