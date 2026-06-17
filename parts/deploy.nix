@@ -13,11 +13,9 @@
 
         profilesOrder = [ "system" ];
         profiles.system = {
-          sshUser = "tydooo";
-          user = "root";
+          sshUser = "root";
           remoteBuild = false;
           path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.zoltraak;
-          interactiveSudo = true;
         };
       };
     };
