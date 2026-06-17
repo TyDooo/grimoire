@@ -96,6 +96,11 @@ in
               roles.default.tags = [ "server" ];
               roles.default.extraModules = [ server ];
             };
+
+            emergency-access = {
+              module.name = "emergency-access";
+              roles.default.tags.nixos = { };
+            };
           };
         };
       }
