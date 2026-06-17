@@ -28,19 +28,11 @@
         "shared"
       ];
       group = "tydooo";
-
-      openssh.authorizedKeys.keys = [ (builtins.readFile ./ssh.pub) ];
-      hashedPasswordFile = config.sops.secrets."users/tydooo/password".path;
     };
     groups.tydooo.gid = 1000;
   };
 
   home-manager.users.tydooo = import ./home/${config.networking.hostName}.nix;
-
-  sops.secrets."users/tydooo/password" = {
-    sopsFile = ./secrets.yaml;
-    neededForUsers = true;
-  };
 
   # Make sure zsh is enabled, as it is the default shell for the user
   programs.zsh.enable = true;

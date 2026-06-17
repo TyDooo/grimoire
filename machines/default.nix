@@ -50,6 +50,27 @@ in
           };
 
           instances = {
+            user-root = {
+              module.name = "users";
+              roles.default.tags.all = { };
+              roles.default.settings = {
+                user = "root";
+                prompt = false;
+                openssh.authorizedKeys.keyFiles = [ ../users/ssh.pub ];
+              };
+            };
+
+            user-tydooo = {
+              module.name = "users";
+              roles.default.tags.all = { };
+              roles.default.settings = {
+                user = "tydooo";
+                share = true;
+                openssh.authorizedKeys.keyFiles = [ ../users/ssh.pub ];
+              };
+              roles.default.extraModules = [ ../users/tydooo/user.nix ];
+            };
+
             base = {
               module.name = "importer";
               roles.default.tags = [ "all" ];
@@ -59,9 +80,6 @@ in
                 inputs.stylix.nixosModules.stylix
 
                 common
-
-                ../users/tydooo/user.nix
-                ../users/root/user.nix
 
                 ../modules
               ];
