@@ -82,13 +82,14 @@ in
               CategorySavePathChanged = false;
               DefaultSavePathChanged = false;
             };
-            MaxActiveTorrents = 5;
+            MaxActiveTorrents = 20;
             MaxActiveDownloads = 3;
             MaxActiveUploads = 3;
             GlobalMaxRatio = 1;
             GlobalMaxSeedingMinutes = 2880;
             Preallocation = true;
             QueueingSystemEnabled = true;
+            IgnoreSlowTorrentsForQueueing = true;
           };
         };
         Preferences = {
