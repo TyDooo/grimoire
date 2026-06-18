@@ -1,5 +1,5 @@
+# NOTE: SOPS is handled by clan internally
 {
-  inputs,
   config,
   lib,
   ...
@@ -10,8 +10,6 @@ let
   hasOptinPersistence = config.environment ? persistence."/persist";
 in
 {
-  imports = [ inputs.sops-nix.nixosModules.sops ];
-
   # Needed for sops-nix to decrypt the host key when using clan
   sops.age.keyFile = "${lib.optionalString hasOptinPersistence "/persist"}/var/lib/sops-nix/key.txt";
 }
