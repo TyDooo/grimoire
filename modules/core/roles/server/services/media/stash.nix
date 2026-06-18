@@ -50,9 +50,9 @@ in
       openFirewall = true;
       pythonPackage = pkgs.stashPython;
       username = "TyDooo";
-      passwordFile = config.sops.secrets."stash/password".path;
-      sessionStoreKeyFile = config.sops.secrets."stash/session_store_key".path;
-      jwtSecretKeyFile = config.sops.secrets."stash/jwt_secret_key".path;
+      passwordFile = config.clan.core.vars.generators.stash-secrets.files.password.path;
+      sessionStoreKeyFile = config.clan.core.vars.generators.stash-secrets.files.sessionStoreKey.path;
+      jwtSecretKeyFile = config.clan.core.vars.generators.stash-secrets.files.jwtSecretKey.path;
       mutableSettings = true;
       mutableScrapers = true;
       mutablePlugins = true;
@@ -76,22 +76,41 @@ in
       };
     };
 
-    sops.secrets = {
-      "stash/password" = {
-        owner = config.services.stash.user;
-        inherit (config.services.stash) group;
-        mode = "0600";
+    clan.core.vars.generators.stash-secrets = {
+      prompts.password-input = {
+        description = "stash user password";
+        type = "hidden";
+        persist = false;
       };
-      "stash/session_store_key" = {
-        owner = config.services.stash.user;
-        inherit (config.services.stash) group;
-        mode = "0600";
+      files = {
+        password = {
+          secret = true;
+          owner = config.services.stash.user;
+          inherit (config.services.stash) group;
+          mode = "0600";
+          restartUnits = [ "stashapp.service" ];
+        };
+        sessionStoreKey = {
+          secret = true;
+          owner = config.services.stash.user;
+          inherit (config.services.stash) group;
+          mode = "0600";
+          restartUnits = [ "stashapp.service" ];
+        };
+        jwtSecretKey = {
+          secret = true;
+          owner = config.services.stash.user;
+          inherit (config.services.stash) group;
+          mode = "0600";
+          restartUnits = [ "stashapp.service" ];
+        };
       };
-      "stash/jwt_secret_key" = {
-        owner = config.services.stash.user;
-        inherit (config.services.stash) group;
-        mode = "0600";
-      };
+      runtimeInputs = [ pkgs.openssl ];
+      script = ''
+        cat $prompts/password-input > $out/password
+        openssl rand -hex 32 > $out/sessionStoreKey
+        openssl rand -hex 32 > $out/jwtSecretKey
+      '';
     };
 
     environment.persistence = {

@@ -29,7 +29,8 @@ in
 
         localtime = true;
       };
-      accounts.tydooo.passwordFile = config.sops.secrets."copyparty/tydooo".path;
+      accounts.tydooo.passwordFile =
+        config.clan.core.vars.generators.copyparty-user-password.files.password-tydooo.path;
       volumes = {
         "/" = {
           path = "/mnt/disks/tank/files";
@@ -101,10 +102,22 @@ in
       ];
     };
 
-    sops.secrets."copyparty/tydooo" = {
-      owner = "copyparty";
-      group = "copyparty";
-      mode = "0600";
+    clan.core.vars.generators.copyparty-user-password = {
+      prompts.password-input-tydooo = {
+        description = "copyparty tydooo user password";
+        type = "hidden";
+        persist = false;
+      };
+      files.password-tydooo = {
+        secret = true;
+        owner = "copyparty";
+        group = "copyparty";
+        mode = "0600";
+        restartUnits = [ "copyparty.service" ];
+      };
+      script = ''
+        cat $prompts/password-input-tydooo > $out/password-tydooo
+      '';
     };
   };
 }

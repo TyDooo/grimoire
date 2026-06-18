@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   inherit (lib) mkIf mkEnableOption;
 
@@ -7,6 +12,25 @@ let
   database = {
     name = "mealie";
     user = "mealie";
+  };
+
+  # TODO: move to lib
+  mkEnvGenerator = envs: rec {
+    files.envfile = { };
+    runtimeInputs = [ pkgs.coreutils ];
+    prompts = pkgs.lib.genAttrs envs (_name: {
+      persist = false;
+    });
+
+    # Invalidate on env change
+    validation.script = script;
+
+    script = ''
+      mkdir -p $out
+      cat <<EOT >> $out/envfile
+      ${builtins.concatStringsSep "\n" (map (e: "${e}='$(cat $prompts/${e})'") envs)}
+      EOT
+    '';
   };
 in
 {
@@ -31,12 +55,18 @@ in
         OIDC_AUTH_ENABLED = "false";
         OIDC_SIGNUP_ENABLED = "true";
         OIDC_PROVIDER_NAME = "Pocket ID";
+        OIDC_CONFIGURATION_URL = "https://auth.driessen.family/.well-known/openid-configuration";
+        OIDC_CLIENT_ID = "5abd9663-3a0d-47dc-accd-d3176fa1e612";
+
+        BASE_URL = "https://mealie.driessen.family";
       };
 
-      credentialsFile = config.sops.secrets."mealie-env".path;
+      credentialsFile = config.clan.core.vars.generators."mealie".files."envfile".path;
     };
 
-    sops.secrets."mealie-env" = { };
+    clan.core.vars.generators."mealie" = mkEnvGenerator [
+      "OIDC_CLIENT_SECRET"
+    ];
 
     networking.firewall.allowedTCPPorts = [
       config.services.mealie.port

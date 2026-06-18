@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }:
@@ -24,7 +25,26 @@ let
       "--network=host"
       "--tmpfs=/app/temp_audio:size=1G,mode=1777"
     ];
-    environmentFiles = [ config.sops.secrets."audiomuse-ai/env".path ];
+    environmentFiles = [ config.clan.core.vars.generators."audiomuse".files."envfile".path ];
+  };
+
+  # TODO: move to lib
+  mkEnvGenerator = envs: rec {
+    files.envfile = { };
+    runtimeInputs = [ pkgs.coreutils ];
+    prompts = pkgs.lib.genAttrs envs (_name: {
+      persist = false;
+    });
+
+    # Invalidate on env change
+    validation.script = script;
+
+    script = ''
+      mkdir -p $out
+      cat <<EOT >> $out/envfile
+      ${builtins.concatStringsSep "\n" (map (e: "${e}='$(cat $prompts/${e})'") envs)}
+      EOT
+    '';
   };
 
   containerEnv = {
@@ -32,7 +52,7 @@ let
 
     MEDIASERVER_TYPE = "navidrome";
     NAVIDROME_URL = "http://localhost:4533";
-    # NAVIDROME_USER:     provided through SOPS
+    NAVIDROME_USER = "audiomuse";
     # NAVIDROME_PASSWORD: provided through SOPS
 
     POSTGRES_HOST = "127.0.0.1";
@@ -64,6 +84,12 @@ in
       port = redisPort;
       bind = "127.0.0.1";
     };
+
+    clan.core.vars.generators."audiomuse" = mkEnvGenerator [
+      "NAVIDROME_PASSWORD"
+      "AUDIOMUSE_USER"
+      "AUDIOMUSE_PASSWORD"
+    ];
 
     services.postgresql = {
       ensureDatabases = [ database.name ];
@@ -103,8 +129,6 @@ in
         after = "navidrome.service";
       };
     };
-
-    sops.secrets."audiomuse-ai/env" = { };
 
     networking.firewall.allowedTCPPorts = [ 8000 ];
   };

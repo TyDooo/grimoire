@@ -21,57 +21,6 @@ in
       group = "media";
       configFile = null;
       allowConfigWrite = true;
-      # secretFiles = [config.sops.secrets."sabnzbd".path];
-      # settings = {
-      #   misc = {
-      #     inherit port;
-      #     complete_dir = "/mnt/user/downloads/usenet/complete";
-      #     download_dir = "/mnt/user/downloads/usenet/incomplete";
-      #     permissions = 770;
-      #   };
-
-      #   servers = {
-      #     "eweka" = {
-      #       name = "eweka";
-      #       displayname = "eweka";
-      #       host = "news.eweka.nl";
-      #       port = 563;
-      #       timeout = 60;
-      #       connections = 50;
-      #       ssl = true;
-      #       ssl_verify = 3;
-      #       enable = true;
-      #       required = true;
-      #       priority = 0;
-      #     };
-      #   };
-
-      #   categories = {
-      #     "*" = {
-      #       priority = 0;
-      #     };
-      #     movies = {
-      #       priority = -100;
-      #       dir = "movies";
-      #     };
-      #     shows = {
-      #       priority = -100;
-      #       dir = "shows";
-      #     };
-      #     music = {
-      #       priority = -100;
-      #       dir = "music";
-      #     };
-      #     anime = {
-      #       priority = -100;
-      #       dir = "anime";
-      #     };
-      #     prowlarr = {
-      #       priority = -100;
-      #       dir = "prowlarr";
-      #     };
-      #   };
-      # };
     };
 
     users.users.sabnzbd.extraGroups = [ "media" ];
@@ -113,12 +62,6 @@ in
     vpnNamespaces.proton0.portMappings = singleton {
       from = port;
       to = port;
-    };
-
-    sops.secrets."sabnzbd" = {
-      owner = config.services.sabnzbd.user;
-      inherit (config.services.sabnzbd) group;
-      mode = "0600";
     };
 
     networking.firewall.allowedTCPPorts = [ port ];

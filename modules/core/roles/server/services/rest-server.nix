@@ -15,7 +15,7 @@ in
       listenAddress = "8745";
       privateRepos = true;
       dataDir = "/mnt/disks/tank/backup/restic";
-      htpasswd-file = config.sops.secrets."restic/server/passwd".path;
+      htpasswd-file = config.clan.core.vars.generators."rest-server".files."htpasswd".path;
     };
 
     users.users.restic.extraGroups = [ "backup" ];
@@ -24,10 +24,16 @@ in
       "d /mnt/disks/tank/backup/restic 2775 restic backup - -"
     ];
 
-    sops.secrets."restic/server/passwd" = {
-      owner = "restic";
-      group = "restic";
-      mode = "0600";
+    clan.core.vars.generators."rest-server" = {
+      prompts."htpasswd" = {
+        persist = true;
+        type = "multiline";
+      };
+      files."htpasswd" = {
+        owner = "restic";
+        group = "restic";
+        mode = "0600";
+      };
     };
 
     networking.firewall.allowedTCPPorts = [ 8745 ];

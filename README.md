@@ -65,3 +65,4 @@ This configuration is inspired by and borrows from:
 - [JManch/nixos](https://github.com/JManch/nixos)
 - [notthebee/nix-config](https://git.notthebe.ee/notthebee/nix-config)
 - [darkone-linux/darkone-nixos-framework](https://github.com/darkone-linux/darkone-nixos-framework)
+- [pinpox/nixos](https://github.com/pinpox/nixos)
