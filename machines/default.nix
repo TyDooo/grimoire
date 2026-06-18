@@ -62,6 +62,11 @@ in
           roles.default.extraModules = [ ../users/tydooo/user.nix ];
         };
 
+        sshd-basic = {
+          module.name = "sshd";
+          roles.server.tags.all = { };
+        };
+
         base = {
           module.name = "importer";
           roles.default.tags = [ "all" ];

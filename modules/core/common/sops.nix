@@ -1,18 +1,17 @@
 {
   inputs,
   config,
+  lib,
   ...
 }:
 let
-  isEd25519 = k: k.type == "ed25519";
-  getKeyPath = k: k.path;
-  keys = builtins.filter isEd25519 config.services.openssh.hostKeys;
+  # SOPS needs access to the key before the persist dirs are even mounted; so
+  # just persisting the key won't work, we must point at /persist
+  hasOptinPersistence = config.environment ? persistence."/persist";
 in
 {
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
-  sops = {
-    age.sshKeyPaths = map getKeyPath keys;
-    defaultSopsFile = ../../../machines/${config.networking.hostName}/secrets.yaml;
-  };
+  # Needed for sops-nix to decrypt the host key when using clan
+  sops.age.keyFile = "${lib.optionalString hasOptinPersistence "/persist"}/var/lib/sops-nix/key.txt";
 }

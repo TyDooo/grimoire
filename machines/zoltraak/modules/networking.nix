@@ -35,7 +35,7 @@
 
   vpnNamespaces.proton0 = {
     enable = true;
-    wireguardConfigFile = config.sops.secrets."vpn/proton".path;
+    wireguardConfigFile = config.clan.core.vars.generators."vpn-proton0".files."configFile".path;
     accessibleFrom = [
       "127.0.0.1"
       "10.10.0.0/16"
@@ -49,5 +49,8 @@
     };
   };
 
-  sops.secrets."vpn/proton" = { };
+  clan.core.vars.generators."vpn-proton0" = {
+    prompts."configFile".persist = true;
+    prompts."configFile".type = "multiline";
+  };
 }
