@@ -72,8 +72,6 @@ in
           roles.default.tags = [ "all" ];
           roles.default.extraModules = [
             inputs.home-manager.nixosModules.home-manager
-            inputs.disko.nixosModules.default
-            inputs.stylix.nixosModules.stylix
 
             common
 
