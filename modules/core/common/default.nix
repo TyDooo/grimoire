@@ -2,6 +2,7 @@
   inputs',
   inputs,
   outputs,
+  pkgs,
   ...
 }:
 {
@@ -13,6 +14,8 @@
     ./sops.nix
     ./nix.nix
   ];
+
+  _module.args.grimoire-utils = import ../../../utils { inherit pkgs; };
 
   time.timeZone = "Europe/Amsterdam";
 

@@ -1,6 +1,6 @@
 {
+  grimoire-utils,
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -26,25 +26,6 @@ let
       "--tmpfs=/app/temp_audio:size=1G,mode=1777"
     ];
     environmentFiles = [ config.clan.core.vars.generators."audiomuse".files."envfile".path ];
-  };
-
-  # TODO: move to lib
-  mkEnvGenerator = envs: rec {
-    files.envfile = { };
-    runtimeInputs = [ pkgs.coreutils ];
-    prompts = pkgs.lib.genAttrs envs (_name: {
-      persist = false;
-    });
-
-    # Invalidate on env change
-    validation.script = script;
-
-    script = ''
-      mkdir -p $out
-      cat <<EOT >> $out/envfile
-      ${builtins.concatStringsSep "\n" (map (e: "${e}='$(cat $prompts/${e})'") envs)}
-      EOT
-    '';
   };
 
   containerEnv = {
@@ -85,7 +66,7 @@ in
       bind = "127.0.0.1";
     };
 
-    clan.core.vars.generators."audiomuse" = mkEnvGenerator [
+    clan.core.vars.generators."audiomuse" = grimoire-utils.mkEnvGenerator [
       "NAVIDROME_PASSWORD"
       "AUDIOMUSE_USER"
       "AUDIOMUSE_PASSWORD"

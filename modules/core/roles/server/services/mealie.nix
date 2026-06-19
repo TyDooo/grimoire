@@ -1,6 +1,6 @@
 {
+  grimoire-utils,
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -12,25 +12,6 @@ let
   database = {
     name = "mealie";
     user = "mealie";
-  };
-
-  # TODO: move to lib
-  mkEnvGenerator = envs: rec {
-    files.envfile = { };
-    runtimeInputs = [ pkgs.coreutils ];
-    prompts = pkgs.lib.genAttrs envs (_name: {
-      persist = false;
-    });
-
-    # Invalidate on env change
-    validation.script = script;
-
-    script = ''
-      mkdir -p $out
-      cat <<EOT >> $out/envfile
-      ${builtins.concatStringsSep "\n" (map (e: "${e}='$(cat $prompts/${e})'") envs)}
-      EOT
-    '';
   };
 in
 {
@@ -64,7 +45,7 @@ in
       credentialsFile = config.clan.core.vars.generators."mealie".files."envfile".path;
     };
 
-    clan.core.vars.generators."mealie" = mkEnvGenerator [
+    clan.core.vars.generators."mealie" = grimoire-utils.mkEnvGenerator [
       "OIDC_CLIENT_SECRET"
     ];
 
