@@ -109,6 +109,11 @@ in
           module.name = "trusted-nix-caches";
           roles.default.tags.all = { };
         };
+
+        yggdrasil = {
+          module.name = "yggdrasil";
+          roles.default.tags.all = { };
+        };
       };
     };
   };
