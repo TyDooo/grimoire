@@ -38,6 +38,14 @@ in
           "headless"
           "server"
         ];
+
+        catastravia = {
+          deploy.targetHost = "root@46.224.129.105";
+          tags = [
+            "headless"
+            "server"
+          ];
+        };
       };
 
       instances = {
