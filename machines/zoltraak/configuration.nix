@@ -14,7 +14,7 @@
     rsync
   ];
 
-  clan.core.networking.targetHost = "zoltraak";
+  clan.core.networking.targetHost = "10.10.50.50";
 
   boot = {
     initrd.systemd.enable = true;
