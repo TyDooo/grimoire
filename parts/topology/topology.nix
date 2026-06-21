@@ -4,6 +4,7 @@ let
     mkInternet
     mkSwitch
     mkRouter
+    mkDevice
     mkConnection
     ;
 in
@@ -53,7 +54,7 @@ in
   };
 
   nodes.unifi-gateway = mkRouter "Unifi Gateway" {
-    info = "Unifi gateway";
+    hardware.info = "UCG Max";
     image = ./images/UCG-Max.png;
     interfaceGroups = [
       [ "wan1" ]
@@ -70,6 +71,7 @@ in
 
   nodes.switch-meterkast = mkSwitch "Switch Meterkast" {
     image = ./images/USW-Lite-16-PoE.png;
+    hardware.info = "USW Lite 16 PoE";
     interfaceGroups = [
       [
         # "port1"
@@ -79,11 +81,11 @@ in
         # "port5"
         # "port6"
         # "port7"
-        # "port8"
+        "port8"
         # "port9"
         # "port10"
         # "port11"
-        # "port12"
+        "port12"
         # "port13"
         # "port14"
         # "port15"
@@ -92,21 +94,53 @@ in
     ];
     connections.port3 = mkConnection "zoltraak" "eno1";
     connections.port4 = mkConnection "zoltraak" "enp2s0";
+    connections.port8 = mkConnection "diskstation" "eth1";
+    connections.port12 = mkConnection "switch-bedroom" "port1";
   };
 
   nodes.switch-bijkeuken = mkSwitch "Switch Bijkeuken" {
-    image = ./images/USW-Lite-8-PoE.png;
+    hardware.info = "USW Lite 8 PoE";
+    hardware.image = ./images/USW-Lite-8-PoE.png;
     interfaceGroups = [
       [
-        # "port1"
-        # "port2"
-        # "port3"
-        # "port4"
-        # "port5"
-        # "port6"
-        # "port7"
+        "port1"
+        "port2"
+        "port3"
+        "port4"
+        "port5"
+        "port6"
+        "port7"
         "port8"
       ]
     ];
+
+    connections.port3 = mkConnection "zigbee-coordinator" "eth1";
+  };
+
+  nodes.switch-bedroom = mkSwitch "Switch Bedroom" {
+    info = "Netgear GS108PE";
+    image = ./images/GS108PEv3.png;
+    interfaceGroups = [
+      [
+        "port1"
+        "port2"
+        "port3"
+        "port4"
+        "port5"
+        "port6"
+        "port7"
+        "port8"
+      ]
+    ];
+  };
+
+  nodes.zigbee-coordinator = mkDevice "Zigbee Coordinator" {
+    info = "SLZB-06";
+    interfaces.eth1 = { };
+  };
+
+  nodes.diskstation = mkDevice "Synology DiskStation" {
+    info = "Synology DiskStation";
+    interfaces.eth1 = { };
   };
 }

@@ -65,7 +65,7 @@
   topology.self = {
     hardware.info = "Intel core I3 running a ZFS array";
     interfaces.bond0 = {
-      type = "bond";
+      network = "net-server";
       addresses = [ "10.10.50.50" ];
       renderer.hidePhysicalConnections = true;
     };
