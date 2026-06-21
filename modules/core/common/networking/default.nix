@@ -5,7 +5,6 @@ in
 {
   imports = [
     ./fail2ban.nix
-    ./netbird.nix
     ./ssh.nix
   ];
 
