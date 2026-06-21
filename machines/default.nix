@@ -110,6 +110,15 @@ in
           roles.default.tags.all = { };
         };
 
+        internet = {
+          module.name = "internet";
+          roles.default.tags.server = { };
+          roles.default.machines = {
+            zoltraak.settings.host = "10.10.50.50";
+            catastravia.settings.host = "46.224.129.105";
+          };
+        };
+
         yggdrasil = {
           module.name = "yggdrasil";
           roles.default.tags.all = { };
