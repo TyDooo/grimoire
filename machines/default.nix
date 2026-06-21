@@ -81,6 +81,7 @@ in
           roles.default.tags = [ "all" ];
           roles.default.extraModules = [
             inputs.home-manager.nixosModules.home-manager
+            inputs.nix-topology.nixosModules.default
 
             common
 

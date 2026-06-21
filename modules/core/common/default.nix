@@ -2,6 +2,7 @@
   inputs',
   inputs,
   outputs,
+  config,
   pkgs,
   ...
 }:
@@ -14,6 +15,8 @@
     ./sops.nix
     ./nix.nix
   ];
+
+  topology.id = config.networking.hostName;
 
   _module.args.grimoire-utils = import ../../../utils { inherit pkgs; };
 

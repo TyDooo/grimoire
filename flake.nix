@@ -42,5 +42,9 @@
     impermanence.url = "github:nix-community/impermanence";
     impermanence.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.inputs.home-manager.follows = "home-manager";
+
+    nix-topology.url = "github:oddlama/nix-topology";
+    nix-topology.inputs.flake-parts.follows = "flake-parts";
+    nix-topology.inputs.nixpkgs.follows = "nixpkgs";
   };
 }

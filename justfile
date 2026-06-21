@@ -9,3 +9,6 @@
 
 @check:
   nix flake check
+
+@generate-topology:
+    nix build .#topology.x86_64-linux.config.output

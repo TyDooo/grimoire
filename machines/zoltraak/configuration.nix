@@ -62,6 +62,15 @@
     "d /mnt/disks/tank/backup/proxmox        2775 root backup - -"
   ];
 
+  topology.self = {
+    hardware.info = "Intel core I3 running a ZFS array";
+    interfaces.bond0 = {
+      type = "bond";
+      addresses = [ "10.10.50.50" ];
+      renderer.hidePhysicalConnections = true;
+    };
+  };
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #
