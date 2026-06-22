@@ -6,7 +6,7 @@ let
   inherit (self) outputs;
   inherit (inputs) self;
 
-  modulePath = ../modules;
+  modulePath = ./modules;
 
   coreModules = modulePath + /core;
 
@@ -17,7 +17,11 @@ let
   server = coreModules + /roles/server;
 in
 {
-  flake.clan = {
+  imports = [
+    inputs.clan-core.flakeModules.default
+  ];
+
+  clan = {
     inherit self;
 
     specialArgs = {
@@ -55,7 +59,7 @@ in
           roles.default.settings = {
             user = "root";
             prompt = false;
-            openssh.authorizedKeys.keyFiles = [ ../users/ssh.pub ];
+            openssh.authorizedKeys.keyFiles = [ ./users/ssh.pub ];
           };
         };
 
@@ -65,9 +69,9 @@ in
           roles.default.settings = {
             user = "tydooo";
             share = true;
-            openssh.authorizedKeys.keyFiles = [ ../users/ssh.pub ];
+            openssh.authorizedKeys.keyFiles = [ ./users/ssh.pub ];
           };
-          roles.default.extraModules = [ ../users/tydooo/user.nix ];
+          roles.default.extraModules = [ ./users/tydooo/user.nix ];
         };
 
         sshd-basic = {
@@ -84,7 +88,7 @@ in
 
             common
 
-            ../modules
+            ./modules
           ];
         };
 

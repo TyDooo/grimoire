@@ -7,10 +7,9 @@
       systems = [ "x86_64-linux" ];
 
       imports = [
-        inputs.clan-core.flakeModules.default
-
         ./parts
-        ./machines
+
+        ./clan.nix
       ];
     };
 
