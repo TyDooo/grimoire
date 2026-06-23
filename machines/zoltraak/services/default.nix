@@ -7,7 +7,6 @@
     ./frigate.nix
     ./immich.nix
     ./jellyfin.nix
-    ./mealie.nix
     ./navidrome.nix
     ./plex.nix
     ./postgresql.nix
