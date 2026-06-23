@@ -13,7 +13,6 @@ let
   common = coreModules + /common;
 
   # ROLES
-  headless = coreModules + /roles/headless;
   server = coreModules + /roles/server;
 in
 {
@@ -90,12 +89,6 @@ in
 
             ./modules
           ];
-        };
-
-        headless = {
-          module.name = "importer";
-          roles.default.tags = [ "headless" ];
-          roles.default.extraModules = [ headless ];
         };
 
         server = {

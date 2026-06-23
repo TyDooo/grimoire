@@ -4,6 +4,7 @@
     inputs.vpn-confinement.nixosModules.default
 
     ./modules
+    ./services
   ];
 
   environment.systemPackages = with pkgs; [
@@ -60,6 +61,8 @@
     "d /mnt/disks/tank/backup 2775 root backup - -"
     "d /mnt/disks/tank/backup/home_assistant 2775 root backup - -"
     "d /mnt/disks/tank/backup/proxmox        2775 root backup - -"
+
+    "d /mnt/user/media 2770 root media - -"
   ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,

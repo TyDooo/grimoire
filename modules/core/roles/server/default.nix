@@ -1,6 +1,7 @@
 {
   imports = [
-    # TODO: make services opt-in
-    ./services
+    ./documentation.nix
+    ./fonts.nix
+    ./systemd.nix
   ];
 }
