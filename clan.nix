@@ -120,6 +120,17 @@ in
           module.name = "yggdrasil";
           roles.default.tags.all = { };
         };
+
+        wifi = {
+          module.name = "wifi";
+          roles.default.machines.nephtear = {
+            settings.networks.home = { };
+          };
+        };
+
+        kde = {
+          roles.default.machines.nephtear = { };
+        };
       };
     };
   };
