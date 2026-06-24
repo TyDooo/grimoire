@@ -113,6 +113,7 @@ in
           roles.default.machines = {
             zoltraak.settings.host = "10.10.50.50";
             catastravia.settings.host = "46.224.129.105";
+            nephtear.settings.host = "10.10.10.158";
           };
         };
 
@@ -126,10 +127,6 @@ in
           roles.default.machines.nephtear = {
             settings.networks.home = { };
           };
-        };
-
-        kde = {
-          roles.default.machines.nephtear = { };
         };
       };
     };

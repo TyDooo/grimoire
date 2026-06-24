@@ -41,5 +41,8 @@
     impermanence.url = "github:nix-community/impermanence";
     impermanence.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.inputs.home-manager.follows = "home-manager";
+
+    jovian-nixos.url = "github:Jovian-Experiments/Jovian-NixOS";
+    jovian-nixos.inputs.nixpkgs.follows = "nixpkgs";
   };
 }
