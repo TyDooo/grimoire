@@ -2,6 +2,9 @@
   "machines": {
     "catastravia": {
       "installedAt": 1781956649
+    },
+    "nephtear": {
+      "installedAt": 1782304131
     }
   }
 }
