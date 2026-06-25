@@ -117,6 +117,11 @@ in
           };
         };
 
+        zerotier = {
+          roles.controller.machines.catastravia = { };
+          roles.peer.tags = [ "all" ];
+        };
+
         yggdrasil = {
           module.name = "yggdrasil";
           roles.default.tags.all = { };
