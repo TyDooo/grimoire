@@ -9,7 +9,7 @@
   jovian.steam.enable = true;
   jovian.steam.autoStart = true;
   jovian.steam.user = "tydooo";
-  jovian.steam.desktopSession = "plasma";
+  jovian.steam.desktopSession = "gamescope-wayland";
 
   # jovian.decky-loader.enable = true;
 
