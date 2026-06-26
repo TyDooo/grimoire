@@ -1,9 +1,10 @@
 { pkgs, ... }:
 {
   imports = [
-    ./common.nix
-
+    ./programs
     ./desktop
+
+    ./common.nix
   ];
 
   home.packages = with pkgs; [

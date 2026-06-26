@@ -3,12 +3,6 @@
   ...
 }:
 {
-  imports = [
-    ./programs
-
-    # inputs.stylix.homeModules.stylix
-  ];
-
   nixpkgs = {
     config = {
       allowUnfree = true;
