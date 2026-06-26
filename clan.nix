@@ -49,6 +49,8 @@ in
             "server"
           ];
         };
+
+        judradjim.tags = [ "desktop" ];
       };
 
       instances = {
@@ -132,6 +134,11 @@ in
           roles.default.machines.nephtear = {
             settings.networks.home = { };
           };
+        };
+
+        kde = {
+          # Enable KDE plasma on desktop machines.
+          roles.default.machines.desktop = { };
         };
       };
     };
