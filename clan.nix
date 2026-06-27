@@ -14,6 +14,7 @@ let
 
   # ROLES
   server = coreModules + /roles/server;
+  admin = coreModules + /roles/admin;
 in
 {
   imports = [
@@ -50,7 +51,12 @@ in
           ];
         };
 
-        judradjim.tags = [ "desktop" ];
+        judradjim.tags = [
+          "desktop"
+          "admin"
+        ];
+
+        nephtear.tags = [ "admin" ];
       };
 
       instances = {
@@ -97,6 +103,12 @@ in
           module.name = "importer";
           roles.default.tags = [ "server" ];
           roles.default.extraModules = [ server ];
+        };
+
+        admin = {
+          module.name = "importer";
+          roles.default.tags = [ "admin" ];
+          roles.default.extraModules = [ admin ];
         };
 
         emergency-access = {
