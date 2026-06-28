@@ -8,10 +8,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    wget
-    helix
-    btop
-    git
     rsync
   ];
 

@@ -36,6 +36,14 @@
     LC_TIME = "nl_NL.UTF-8";
   };
 
+  environment.systemPackages = with pkgs; [
+    git
+    vim
+    btop
+    wget
+    helix
+  ];
+
   home-manager = {
     useGlobalPkgs = false;
     extraSpecialArgs = { inherit inputs outputs inputs'; };
