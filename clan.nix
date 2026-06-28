@@ -150,7 +150,7 @@ in
 
         kde = {
           # Enable KDE plasma on desktop machines.
-          roles.default.machines.desktop = { };
+          roles.default.machines.judradjim = { };
         };
       };
     };
