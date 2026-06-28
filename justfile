@@ -1,3 +1,5 @@
+hostname := `hostname`
+
 # This help
 @help:
     just -l -u
@@ -7,5 +9,10 @@
 @update +HOST:
     clan machines update {{HOST}}
 
+[group('nix')]
+@rebuild operation:
+    nixos-rebuild {{operation}} --flake .#{{hostname}} --elevate=sudo
+
+[group('nix')]
 @check:
   nix flake check
