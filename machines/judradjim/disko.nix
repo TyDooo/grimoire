@@ -119,36 +119,6 @@
         };
       };
     };
-
-    disk.sata0 = {
-      device = "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_500GB_S3R3NF1JA65632X";
-      type = "disk";
-
-      content = {
-        type = "gpt";
-        partitions.data = {
-          size = "100%";
-          content = {
-            type = "btrfs";
-            extraArgs = [
-              "-L"
-              "music"
-              "-f"
-            ];
-            mountOptions = [
-              "compress=zstd"
-              "noatime"
-              "discard=async"
-            ];
-            subvolumes = {
-              "/music" = {
-                mountpoint = "/mnt/music";
-              };
-            };
-          };
-        };
-      };
-    };
   };
 
   fileSystems."/persist".neededForBoot = true;
