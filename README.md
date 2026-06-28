@@ -7,7 +7,24 @@
 ![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg)
 ![System Architecture](https://img.shields.io/badge/arch-x86__64--linux-lightgrey)
 
-This is my personal grimoire full of declarative nix magic. It includes all configurations for my NixOS machines and my dotfiles.
+This is my personal grimoire full of declarative nix magic. It includes all configurations for my NixOS machines,
+and my dotfiles managed through home-manager (for now). Deployment, management and secrets are handled through
+[clan](https://clan.lol/).
+
+# Infrastructure
+
+My current machines are:
+
+| Configuration                          | Type    | Location | Description        |
+| -------------------------------------- | ------- | -------- | ------------------ |
+| [Judradjim](./machines/judradjim/)     | Desktop | local    | My main desktop PC |
+| [Nephtear](./machines/nephtear/)       | Handeld | local    | Steam Deck         |
+| [Zoltraak](./machines/zoltraak/)       | Server  | local    |                    |
+| [Catastravia](./machines/catastravia/) | Server  | Hetzner  |                    |
+
+## Services
+
+TODO
 
 ## Credits
 
