@@ -3,6 +3,10 @@
   ...
 }:
 {
+  imports = [
+    ./programs
+  ];
+
   nixpkgs = {
     config = {
       allowUnfree = true;
