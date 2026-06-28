@@ -21,6 +21,9 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # Manage `system.stateVersion` through clan vars
+  clan.core.settings.state-version.enable = true;
+
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "nl_NL.UTF-8";
     LC_IDENTIFICATION = "nl_NL.UTF-8";

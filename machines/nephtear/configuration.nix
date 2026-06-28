@@ -24,6 +24,4 @@
       "/var/lib/bluetooth"
     ];
   };
-
-  system.stateVersion = "26.05";
 }
