@@ -36,6 +36,9 @@
           pkgs.nixfmt
           pkgs.nixos-anywhere
 
+          pkgs.just
+          pkgs.just-lsp
+
           pkgs.git # Required to use flakes
 
           # Secrets related stuff
