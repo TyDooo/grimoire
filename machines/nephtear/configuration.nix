@@ -4,14 +4,8 @@
   ];
 
   boot = {
-    # Quite boot
-    consoleLogLevel = 0;
-    initrd.verbose = false;
-    kernelParams = [ "quiet" ];
-
     initrd.systemd.enable = true;
     loader.systemd-boot.enable = true;
-    plymouth.enable = true;
   };
 
   system.nuke = {

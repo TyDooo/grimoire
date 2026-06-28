@@ -15,6 +15,8 @@ let
   # ROLES
   server = coreModules + /roles/server;
   admin = coreModules + /roles/admin;
+  graphical = coreModules + /roles/graphical;
+  gaming = coreModules + /roles/gaming;
 in
 {
   imports = [
@@ -43,20 +45,23 @@ in
           "server"
         ];
 
-        catastravia = {
-          deploy.targetHost = "root@46.224.129.105";
-          tags = [
-            "headless"
-            "server"
-          ];
-        };
-
-        judradjim.tags = [
-          "desktop"
-          "admin"
+        catastravia.tags = [
+          "headless"
+          "server"
         ];
 
-        nephtear.tags = [ "admin" ];
+        judradjim.tags = [
+          "admin"
+          "desktop"
+          "graphical"
+          "gaming"
+        ];
+
+        nephtear.tags = [
+          "admin"
+          "graphical"
+          "gaming"
+        ];
       };
 
       instances = {
@@ -109,6 +114,18 @@ in
           module.name = "importer";
           roles.default.tags = [ "admin" ];
           roles.default.extraModules = [ admin ];
+        };
+
+        graphical = {
+          module.name = "importer";
+          roles.default.tags = [ "graphical" ];
+          roles.default.extraModules = [ graphical ];
+        };
+
+        gaming = {
+          module.name = "importer";
+          roles.default.tags = [ "gaming" ];
+          roles.default.extraModules = [ gaming ];
         };
 
         emergency-access = {

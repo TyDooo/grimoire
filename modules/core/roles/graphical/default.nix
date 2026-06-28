@@ -1,10 +1,15 @@
 {
   imports = [
     ./fonts.nix
-    ./gnome.nix
-    ./hyprland.nix
-    ./nvidia.nix
     ./pipewire.nix
-    ./plymouth.nix
   ];
+
+  boot = {
+    # Quite boot
+    consoleLogLevel = 0;
+    initrd.verbose = false;
+    kernelParams = [ "quiet" ];
+
+    plymouth.enable = true;
+  };
 }

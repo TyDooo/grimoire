@@ -15,12 +15,6 @@
 
   services.desktopManager.plasma6.enable = true;
 
-  programs.steam = {
-    enable = true;
-    extest.enable = true;
-    remotePlay.openFirewall = true;
-  };
-
   # environment.persistence = {
   #   "/persist".directories = [
   #     {
