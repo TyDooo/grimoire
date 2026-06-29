@@ -106,14 +106,6 @@
                   "noatime"
                 ];
               };
-              "/games" = {
-                mountpoint = "/mnt/games";
-                mountOptions = [
-                  "subvol=games"
-                  "compress=zstd"
-                  "noatime"
-                ];
-              };
             };
           };
         };
