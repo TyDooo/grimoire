@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   imports = [
     ./modules
   ];
@@ -20,5 +21,6 @@
     feishin # Subsonic compatible music player
     whipper # Music CD ripper
     picard # Music tagger
+    kitty
   ];
 }
