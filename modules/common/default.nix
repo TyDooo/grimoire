@@ -15,7 +15,7 @@
     ./nix.nix
   ];
 
-  _module.args.grimoire-utils = import ../../../utils { inherit pkgs; };
+  _module.args.grimoire-utils = import ../../utils { inherit pkgs; };
 
   time.timeZone = "Europe/Amsterdam";
 

@@ -1,22 +1,19 @@
-{
-  inputs,
-  ...
-}:
+{ inputs, ... }:
 let
   inherit (self) outputs;
   inherit (inputs) self;
 
   modulePath = ./modules;
 
-  coreModules = modulePath + /core;
-
-  common = coreModules + /common;
+  common = modulePath + /common;
 
   # ROLES
-  server = coreModules + /roles/server;
-  admin = coreModules + /roles/admin;
-  graphical = coreModules + /roles/graphical;
-  gaming = coreModules + /roles/gaming;
+  rolesPath = modulePath + /roles;
+
+  server = rolesPath + /server;
+  admin = rolesPath + /admin;
+  graphical = rolesPath + /graphical;
+  gaming = rolesPath + /gaming;
 in
 {
   imports = [
