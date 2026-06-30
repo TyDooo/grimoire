@@ -4,5 +4,6 @@
     ./evo4.nix
     ./niri.nix
     ./nvidia.nix
+    ./sddm.nix
   ];
 }
