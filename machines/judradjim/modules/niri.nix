@@ -27,7 +27,23 @@ in
   programs.niri.enable = true;
   programs.niri.package = niriFork;
 
+  services.gnome.gnome-keyring.enable = true;
+
+  services.udisks2.enable = true; # Removable media.
+  services.gvfs.enable = true; # Nautilus mount and trash support.
+
   environment.systemPackages = with pkgs; [
     noctalia-shell
+    brightnessctl
+
+    kitty # Terminal emulator
+    loupe # GNOME image viewer
+    papers # GNOME document viewer
+    nautilus # GNOME file manager
+
+    # Niri deps from their docs
+    xwayland-satellite
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-gnome
   ];
 }

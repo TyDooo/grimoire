@@ -14,13 +14,14 @@
     home = lib.mkForce false; # Not supported on this machine
   };
 
-  programs.firefox.enable = true;
-
   environment.systemPackages = with pkgs; [
+    streamrip
     vscodium
     feishin # Subsonic compatible music player
     whipper # Music CD ripper
     picard # Music tagger
-    kitty
+    telegram-desktop
+    vesktop
+    spotify
   ];
 }

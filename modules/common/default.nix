@@ -42,6 +42,7 @@
     btop
     wget
     helix
+    fastfetch
   ];
 
   home-manager = {

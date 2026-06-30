@@ -156,11 +156,6 @@ in
             settings.networks.home = { };
           };
         };
-
-        kde = {
-          # Enable KDE plasma on desktop machines.
-          roles.default.machines.judradjim = { };
-        };
       };
     };
   };
