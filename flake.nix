@@ -47,5 +47,9 @@
 
     # Do not override its nixpkgs input, otherwise there can be mismatch between patches and kernel version
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
+    nur.inputs.flake-parts.follows = "flake-parts";
   };
 }

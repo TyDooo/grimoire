@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ inputs, lib, ... }:
 {
   imports = [
     ./programs
@@ -14,6 +11,10 @@
       # TODO: Check if still needed.
       allowUnfreePredicate = _: true;
     };
+
+    overlays = [
+      inputs.nur.overlays.default
+    ];
   };
 
   home = {
