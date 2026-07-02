@@ -150,6 +150,10 @@ in
           roles.peer.tags = [ "all" ];
         };
 
+        yggdrasil = {
+          roles.default.tags = [ "all" ];
+        };
+
         wifi = {
           module.name = "wifi";
           roles.default.machines.nephtear = {
