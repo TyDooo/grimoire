@@ -1,9 +1,4 @@
-{
-  config,
-  self,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 let
   dataPath = "/var/lib/navidrome";
   musicPath = "/mnt/user/media/music";
@@ -11,8 +6,6 @@ in
 {
   services.navidrome = {
     enable = true;
-    # TODO: Change back to nixpkgs version once v0.62.0 is packaged
-    package = self.packages.x86_64-linux.navidrome;
 
     settings = {
       Port = 4533;
