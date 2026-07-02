@@ -36,6 +36,7 @@ in
     ];
 
     modules."@grimoire/nfs" = ./clanServices/nfs;
+    modules."@grimoire/shoko" = ./clanServices/shoko;
 
     inventory = {
       machines = {
@@ -127,6 +128,12 @@ in
           roles.default.extraModules = [ gaming ];
         };
 
+        zoltraak-shoko = {
+          module.input = "self";
+          module.name = "@grimoire/shoko";
+          roles.default.machines.zoltraak = { };
+        };
+
         emergency-access = {
           module.name = "emergency-access";
           roles.default.tags.nixos = { };
@@ -137,13 +144,33 @@ in
           roles.default.tags.all = { };
         };
 
+        data-mesher = {
+          module.name = "data-mesher";
+          # All machines participate in the mesh
+          roles.default.tags.all = { };
+          roles.default.settings.interfaces = [ "ztt3kigr5l" ];
+          # Always-on servers act as bootstrap entry points
+          roles.bootstrap.tags.server = { };
+        };
+
+        dm-dns = {
+          module.name = "dm-dns";
+          roles.default.tags.all = { };
+          roles.push.machines.judradjim = { };
+          roles.push.machines.zoltraak = { };
+        };
+
+        pki = {
+          module.name = "pki";
+          roles.default.tags = [ "all" ];
+        };
+
         internet = {
           module.name = "internet";
           roles.default.tags.server = { };
           roles.default.machines = {
             zoltraak.settings.host = "10.10.50.50";
             catastravia.settings.host = "46.224.129.105";
-            nephtear.settings.host = "10.10.10.158";
           };
         };
 

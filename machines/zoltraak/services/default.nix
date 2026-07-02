@@ -14,7 +14,6 @@
     ./rest-server.nix
     ./sabnzbd.nix
     ./seerr.nix
-    ./shoko.nix
     ./stash.nix
   ];
 }
