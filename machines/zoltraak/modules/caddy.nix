@@ -9,10 +9,9 @@
     enable = true;
     package = pkgs.caddy.withPlugins {
       plugins = [
-        "github.com/greenpau/caddy-security@v1.1.62"
         "github.com/caddy-dns/cloudflare@v0.2.4"
       ];
-      hash = "sha256-dzCIHQwXO0EkCEwSRpmEh2Mgha+j0wmPKvr8b7yiPlg=";
+      hash = "sha256-hEHgAG0F0ozHRAPuxEqLyTATBrE+pajeXDiSNwniorg=";
     };
     openFirewall = true;
     environmentFile = config.clan.core.vars.generators."caddy".files."envfile".path;
