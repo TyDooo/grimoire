@@ -35,6 +35,8 @@ in
       "age-plugin-yubikey"
     ];
 
+    modules."@grimoire/nfs" = ./clanServices/nfs;
+
     inventory = {
       machines = {
         zoltraak.tags = [
@@ -158,6 +160,28 @@ in
           module.name = "wifi";
           roles.default.machines.nephtear = {
             settings.networks.home = { };
+          };
+        };
+
+        nfs = {
+          module.input = "self";
+          module.name = "@grimoire/nfs";
+
+          roles.server.machines.zoltraak.settings.shares = {
+            music.source = "/mnt/disks/tank/media/music";
+            sauce.source = "/mnt/user/sauce";
+          };
+          roles.client.machines.judradjim.settings.mounts = {
+            music = {
+              server = "zoltraak";
+              share = "music";
+              path = "/mnt/user/music";
+            };
+            sauce = {
+              server = "zoltraak";
+              share = "sauce";
+              path = "/mnt/user/sauce";
+            };
           };
         };
       };
