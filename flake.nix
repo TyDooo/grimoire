@@ -28,9 +28,6 @@
 
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
 
-    devshell.url = "github:numtide/devshell";
-    devshell.inputs.nixpkgs.follows = "nixpkgs";
-
     treefmt-nix.follows = "clan-core/treefmt-nix";
 
     nix-index-db.url = "github:nix-community/nix-index-database";
