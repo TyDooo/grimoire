@@ -111,4 +111,14 @@
       }
     ];
   };
+
+  clan.core.state.stash = {
+    folders = [ "/var/lib/stash" ];
+    preBackupScript = ''
+      systemctl stop stashapp.service
+    '';
+    postBackupScript = ''
+      systemctl start stashapp.service
+    '';
+  };
 }

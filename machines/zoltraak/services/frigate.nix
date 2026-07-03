@@ -47,4 +47,14 @@
       }
     ];
   };
+
+  clan.core.state.frigate = {
+    folders = [ "/var/lib/frigate" ];
+    preBackupScript = ''
+      systemctl stop podman-frigate.service
+    '';
+    postBackupScript = ''
+      systemctl start podman-frigate.service
+    '';
+  };
 }

@@ -27,4 +27,14 @@
       }
     ];
   };
+
+  clan.core.state.seerr = {
+    folders = [ "/var/lib/seerr" ];
+    preBackupScript = ''
+      systemctl stop podman-seerr.service
+    '';
+    postBackupScript = ''
+      systemctl start podman-seerr.service
+    '';
+  };
 }

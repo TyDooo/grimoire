@@ -17,4 +17,13 @@
     ];
   };
 
+  clan.core.state.plex = {
+    folders = [ config.services.plex.dataDir ];
+    preBackupScript = ''
+      systemctl stop plex.service
+    '';
+    postBackupScript = ''
+      systemctl start plex.service
+    '';
+  };
 }

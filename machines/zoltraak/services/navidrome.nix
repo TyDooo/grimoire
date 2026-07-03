@@ -47,4 +47,14 @@ in
       mode = "0750";
     }
   ];
+
+  clan.core.state.navidrome = {
+    folders = [ dataPath ];
+    preBackupScript = ''
+      systemctl stop navidrome.service
+    '';
+    postBackupScript = ''
+      systemctl start navidrome.service
+    '';
+  };
 }

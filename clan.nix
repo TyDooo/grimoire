@@ -211,6 +211,15 @@ in
             };
           };
         };
+
+        borgbackup = {
+          roles.client.machines.zoltraak = {
+            settings.destinations."storagebox" = {
+              repo = "u330276-sub2@u330276-sub2.your-storagebox.de:/./borgbackup";
+              rsh = "ssh -p 23 -oStrictHostKeyChecking=accept-new -i /run/secrets/vars/borgbackup/borgbackup.ssh";
+            };
+          };
+        };
       };
     };
   };

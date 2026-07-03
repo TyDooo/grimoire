@@ -49,6 +49,16 @@ in
     ];
   };
 
+  clan.core.state.sabnzbd = {
+    folders = [ "/var/lib/sabnzbd" ];
+    preBackupScript = ''
+      systemctl stop sabnzbd.service
+    '';
+    postBackupScript = ''
+      systemctl start sabnzbd.service
+    '';
+  };
+
   vpnNamespaces.proton0.portMappings = singleton {
     from = port;
     to = port;

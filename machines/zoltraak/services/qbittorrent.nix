@@ -140,11 +140,20 @@ in
     ];
   };
 
+  clan.core.state.qbittorrent = {
+    folders = [ config.services.qbittorrent.profileDir ];
+    preBackupScript = ''
+      systemctl stop qbittorrent.service
+    '';
+    postBackupScript = ''
+      systemctl start qbittorrent.service
+    '';
+  };
+
   vpnNamespaces.proton0.portMappings = singleton {
     from = port;
     to = port;
   };
 
   networking.firewall.allowedTCPPorts = [ port ];
-
 }

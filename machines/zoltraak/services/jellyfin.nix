@@ -20,4 +20,14 @@
       }
     ];
   };
+
+  clan.core.state.jellyfin = {
+    folders = [ config.services.jellyfin.dataDir ];
+    preBackupScript = ''
+      systemctl stop jellyfin.service
+    '';
+    postBackupScript = ''
+      systemctl start jellyfin.service
+    '';
+  };
 }
