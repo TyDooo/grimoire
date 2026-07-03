@@ -22,6 +22,7 @@
           just-lsp
 
           git # Required to use flakes
+          jujutsu
 
           # Secrets related stuff
           sops
