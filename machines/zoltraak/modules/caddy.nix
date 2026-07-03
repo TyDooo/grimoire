@@ -37,19 +37,25 @@
       '';
 
       "jellyfin.driessen.family".extraConfig = ''
-        reverse_proxy http://localhost:8096
+        reverse_proxy http://localhost:8096 {
+          header_up X-Real-IP {remote_host}
+        }
       '';
 
       "immich.driessen.family".extraConfig = ''
-        reverse_proxy http://localhost:2283
+        reverse_proxy http://localhost:2283 {
+          header_up X-Real-IP {remote_host}
+        }
       '';
 
       "navidrome.driessen.family".extraConfig = ''
-        reverse_proxy http://localhost:4533
+        reverse_proxy http://localhost:4533 {
+          header_up X-Real-IP {remote_host}
+        }
       '';
 
       "overseerr.driessen.family".extraConfig = ''
-        redir seerr.driessen.family
+        redir https://seerr.driessen.family
       '';
 
       "seerr.driessen.family".extraConfig = ''
@@ -57,11 +63,15 @@
       '';
 
       "plex.driessen.family".extraConfig = ''
-        reverse_proxy http://localhost:32400
+        reverse_proxy http://localhost:32400 {
+          header_up X-Real-IP {remote_host}
+        }
       '';
 
       "homey.driessen.family".extraConfig = ''
-        reverse_proxy http://10.10.20.169:4859
+        reverse_proxy http://10.10.20.169:4859 {
+          header_up X-Real-IP {remote_host}
+        }
       '';
 
       "shoko.home.driessen.family".extraConfig = ''
