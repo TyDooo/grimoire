@@ -1,2 +1,3 @@
 local-zone: "spell." transparent
+local-data: "beszel.spell. CNAME zoltraak.spell."
 local-data: "shoko.spell. CNAME zoltraak.spell."
