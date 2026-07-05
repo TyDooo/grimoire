@@ -10,7 +10,7 @@
     mutableUsers = false;
     users.tydooo = {
       isNormalUser = true;
-      shell = pkgs.zsh;
+      shell = pkgs.fish;
       uid = 1000;
 
       extraGroups = [
@@ -34,6 +34,6 @@
 
   home-manager.users.tydooo = import ./home/${config.networking.hostName}.nix;
 
-  # Make sure zsh is enabled, as it is the default shell for the user
-  programs.zsh.enable = true;
+  # Make sure fish is enabled, as it is the default shell for the user
+  programs.fish.enable = true;
 }

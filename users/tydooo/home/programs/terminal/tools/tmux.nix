@@ -8,7 +8,7 @@
     historyLimit = 5000;
     prefix = "C-s";
     sensibleOnTop = true;
-    shell = "${pkgs.zsh}/bin/zsh";
+    shell = "${pkgs.fish}/bin/fish";
     plugins = with pkgs.tmuxPlugins; [
       vim-tmux-navigator
       {

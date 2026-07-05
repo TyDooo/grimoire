@@ -3,6 +3,7 @@
     ./bat.nix
     ./direnv.nix
     ./eza.nix
+    ./fish.nix
     ./fzf.nix
     ./git.nix
     ./gpg.nix
