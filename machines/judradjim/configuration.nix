@@ -14,11 +14,6 @@
     home = lib.mkForce false; # Not supported on this machine
   };
 
-  # FIXME: remove
-  nixpkgs.config.permittedInsecurePackages = [
-    "pnpm-10.29.2"
-  ];
-
   environment.systemPackages = with pkgs; [
     streamrip
     vscodium
