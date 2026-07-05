@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   gtk = {
     enable = true;
     gtk4.theme = null;
@@ -17,5 +17,14 @@
       package = pkgs.adwaita-icon-theme;
       name = "Adwaita";
     };
+
+    gtk3.bookmarks = with config.xdg.userDirs; [
+      "file://${documents}"
+      "file://${download}"
+      "file://${music}"
+      "file://${pictures}"
+      "file://${videos}"
+      "file://${projects}"
+    ];
   };
 }
