@@ -3,6 +3,7 @@
     ./servarr
 
     ./audiomuse.nix
+    ./caddy.nix
     ./copyparty.nix
     ./frigate.nix
     ./immich.nix
