@@ -28,5 +28,7 @@
     telegram-desktop
     vesktop
     spotify
+    obsidian
+    cinny-desktop
   ];
 }

@@ -37,6 +37,7 @@ in
 
     modules."@grimoire/nfs" = ./clanServices/nfs;
     modules."@grimoire/shoko" = ./clanServices/shoko;
+    modules."@grimoire/beszel" = ./clanServices/beszel;
 
     inventory = {
       machines = {
@@ -219,6 +220,14 @@ in
               rsh = "ssh -p 23 -oStrictHostKeyChecking=accept-new -i /run/secrets/vars/borgbackup/borgbackup.ssh";
             };
           };
+        };
+
+        beszel = {
+          module.input = "self";
+          module.name = "@grimoire/beszel";
+
+          roles.hub.machines.catastravia = { };
+          roles.agent.tags.server = { };
         };
       };
     };
