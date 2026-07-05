@@ -195,8 +195,22 @@ in
           module.name = "@grimoire/nfs";
 
           roles.server.machines.zoltraak.settings.shares = {
-            music.source = "/mnt/disks/tank/media/music";
-            sauce.source = "/mnt/user/sauce";
+            # NOTE: the "fsid=" option is needed for the sauce and
+            #       downloads shares as these user mergerfs and do
+            #       not get an inferred fsid assigned. The music
+            #       shares has this option for consitency.
+            music = {
+              source = "/mnt/disks/tank/media/music";
+              options = "rw,nohide,fsid=1";
+            };
+            sauce = {
+              source = "/mnt/user/sauce";
+              options = "rw,nohide,fsid=2";
+            };
+            downloads = {
+              source = "/mnt/user/downloads";
+              options = "rw,nohide,fsid=3";
+            };
           };
           roles.client.machines.judradjim.settings.mounts = {
             music = {
@@ -208,6 +222,11 @@ in
               server = "zoltraak";
               share = "sauce";
               path = "/mnt/user/sauce";
+            };
+            downloads = {
+              server = "zoltraak";
+              share = "downloads";
+              path = "/mnt/user/downloads";
             };
           };
         };
