@@ -25,7 +25,7 @@
         "podman"
         "git"
         "libvirtd"
-        "shared"
+        "media"
       ];
       group = "tydooo";
     };

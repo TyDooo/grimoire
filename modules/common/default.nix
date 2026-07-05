@@ -36,6 +36,12 @@
     LC_TIME = "nl_NL.UTF-8";
   };
 
+  users.groups = {
+    # The media group has access to the media directory on zoltraak, both
+    # on the machine itself and over NFS.
+    media.gid = 990;
+  };
+
   environment.systemPackages = with pkgs; [
     git
     vim

@@ -35,14 +35,8 @@
   };
 
   users = {
-    users.tydooo.extraGroups = [
-      "media"
-      "backup"
-    ];
-    groups = {
-      media = { };
-      backup = { };
-    };
+    users.tydooo.extraGroups = [ "backup" ];
+    groups.backup = { };
   };
 
   systemd.services.systemd-tmpfiles-setup = {
