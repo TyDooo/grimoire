@@ -27,6 +27,19 @@ let
       fsType = "fuse.mergerfs";
       options = [
         "category.create=epff"
+        # epff only lets a branch be picked for new files if the parent
+        # directory already exists there. By default, mkdir only creates
+        # the directory on the single branch epff selects - so a plain
+        # `cp -R` of a new directory (e.g. importing a season pack) would
+        # succeed on the first branch, then fail with "Operation not
+        # permitted" as soon as a later file in the same tree got routed
+        # to a different branch by the create policy, since the parent
+        # directory didn't exist there yet.
+        # func.mkdir=all makes every mkdir create the directory on ALL
+        # branches immediately, so it's always present everywhere before
+        # any file create is attempted, and epff never has a branch to
+        # reject.
+        "func.mkdir=all"
         "defaults"
         "allow_other"
         "moveonenospc=1"
@@ -37,6 +50,11 @@ let
     };
 
   # ZFS MOUNTS
+
+  mkTankDataset = dataset: {
+    path = "${pathTank}/${dataset}";
+    device = "tank/${dataset}";
+  };
 
   zfsMounts = [
     {
@@ -52,34 +70,16 @@ let
     # show up as mounted, but the data inside of the dataset was
     # not accessible. Using the "mountpoint=legacy" option works
     # around this issue. This also makes it a bit more declerative.
-    {
-      path = "${pathTank}/immich";
-      device = "tank/immich";
-    }
-    {
-      path = "${pathTank}/sauce";
-      device = "tank/sauce";
-    }
-    {
-      path = "${pathTank}/media";
-      device = "tank/media";
-    }
-    {
-      path = "${pathTank}/media/music";
-      device = "tank/media/music";
-    }
-    {
-      path = "${pathTank}/paper";
-      device = "tank/paper";
-    }
+    (mkTankDataset "immich")
+    (mkTankDataset "sauce")
+    (mkTankDataset "media")
+    (mkTankDataset "media/music")
+    (mkTankDataset "paper")
   ];
 
   zfsFileSystems = lib.listToAttrs (
     map (
-      {
-        path,
-        device,
-      }:
+      { path, device }:
       lib.nameValuePair path (mkZfs device)
     ) zfsMounts
   );
@@ -125,14 +125,13 @@ in
     "/mnt/slow" = mkMergerfs {
       device = "${pathGlass}:${pathTank}";
       fsname = "mergerfs_slow";
-      minfreespace = "100G";
+      minfreespace = "50G";
     };
 
     # Puts the cache drive in front of the slow disks. Don't use for
     # important data (instead, write to /mnt/disks/tank directly)!!!!!
-    # TODO: change to ${pathCache}:${pathGlass}:${pathTank}?
     "/mnt/user" = mkMergerfs {
-      device = "${pathCache}:${pathSlow}";
+      device = "${pathCache}:${pathGlass}:${pathTank}";
       fsname = "user";
       minfreespace = "50G";
     };

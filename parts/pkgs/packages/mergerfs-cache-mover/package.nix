@@ -5,7 +5,7 @@
   ...
 }:
 let
-  version = "1.4";
+  version = "1.4.2";
   pname = "mergerfs-cache-mover";
 
   runEnv = pkgs.python3.buildEnv.override {
