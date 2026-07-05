@@ -6,7 +6,7 @@
 
     settings = {
       user.name = "TyDooo";
-      user.email = "tydooo" + "@" + "fastmail." + "com";
+      user.email = "hi" + "@" + "tydooo." + "dev";
 
       alias = {
         st = "status";

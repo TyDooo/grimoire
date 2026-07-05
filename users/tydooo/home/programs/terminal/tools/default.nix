@@ -6,7 +6,7 @@
     ./fzf.nix
     ./git.nix
     ./gpg.nix
-    ./lazygit.nix
+    ./jujutsu.nix
     ./nix-index.nix
     ./ripgrep.nix
     ./tmux.nix
